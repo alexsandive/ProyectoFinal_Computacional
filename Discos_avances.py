@@ -102,9 +102,6 @@ class Disco:
             return True
         return False
 
-
-
-
 class DiscoSimulation:
     
     def __init__(self, N, height, width, radio, dt):
@@ -121,7 +118,7 @@ class DiscoSimulation:
             for intento in range(Max):
                     x_pos = random.uniform(-self.ancho/2 + self.radio, self.ancho/2 - self.radio)
                     y_pos = random.uniform(-self.altura/2 + self.radio, self.altura/2 - self.radio)
-                    color = random.choice(['red', 'blue', 'green', 'yellow', 'purple', 'orange'])
+                    color = random.choice(['red', 'blue', 'green', 'pink', 'purple', 'orange'])
                     x_vel = random.uniform(-3, 3)
                     y_vel = random.uniform(-3, 3)
                     
@@ -158,14 +155,13 @@ class DiscoSimulation:
 
         patches_list = []
         for disco in self.discos:
-            circle = patches.Circle((disco.x_pos, disco.y_pos), radius=disco.radio, 
-                                  color=disco.color, alpha=0.7)
+            circle = patches.Circle((disco.x_pos, disco.y_pos), radius=disco.radio, color=disco.color, alpha=0.7)
             ax.add_patch(circle)
             patches_list.append(circle)
 
         def init():
             return patches_list
-
+        
         def animar(i):
             # Mover todos los discos
             for disco in self.discos:
@@ -173,9 +169,9 @@ class DiscoSimulation:
                 disco.check_colisionPared(self.ancho, self.altura)
 
             # Verificar colisiones entre discos (optimizado)
-            for i in range(len(self.discos)):
-                for j in range(i + 1, len(self.discos)):
-                    self.discos[i].check_colisionDisco(self.discos[j])
+            for k in range(len(self.discos)):
+                for j in range(k + 1, len(self.discos)):
+                    self.discos[k].check_colisionDisco(self.discos[j])
 
             # Actualizar posiciones visuales
             for idx, disco in enumerate(self.discos):
@@ -187,18 +183,22 @@ class DiscoSimulation:
         plt.show()
 
 
-    def get_positions(self):
-        positions = []
-        for disco in self.discos:
-            positions.append((disco.x_poss, disco.y_poss))
+    def histograma(self, bins = 50):
+        posiciones_x = []
 
-        return positions
-
-    def calculate_energy(self):
-        energy = 0.0
         for disco in self.discos:
-            energy += 0.5 * (disco.x_vel**2 + disco.y_vel**2)  # masa = 1
-        return energy
+            posiciones_x.extend(disco.x_poss)
+
+        plt.figure(figsize=(10, 6))
+        n, bins, patches = plt.hist(posiciones_x, bins=bins, alpha=0.7, color='red', edgecolor='black')
+        
+        plt.xlabel('Posición en el eje X')
+        plt.ylabel('Frecuencia')
+        plt.title(f'Histograma de posiciones de centros de discos (Eje X)\n{self.N} discos')
+        plt.grid(True, alpha=0.3)
+        
+        plt.show()
+
 
 def time_to_wall_collision(disk, width, height):
     tx_min = float('inf')
@@ -263,8 +263,8 @@ def determine_collision_event(disks, width, height):
     return event_type, disk_indices, min_time   
 
 
-
-
-sim = DiscoSimulation(700, 10, 10, 0.1, 0.02)
+sim = DiscoSimulation(10, 10, 10, 1, 0.03)
 sim.creacionDiscos()
 sim.animarMovimiento()
+sim.histograma(50)
+sim.histograma(500)

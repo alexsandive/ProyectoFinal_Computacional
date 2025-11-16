@@ -1,8 +1,10 @@
+#!/usr/bin/env python
+
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 import matplotlib.patches as patches
-import random, csv
+import random
 
 class Disco:
     """
@@ -27,66 +29,75 @@ class Disco:
         self.x_poss.append(self.x_pos)  
         self.y_poss.append(self.y_pos)  
 
-    def check_wall_collision(self, width, height):
+    def check_colisionPared(self, ancho, altura):
         
-        if self.x_pos - self.radio <= -width / 2:
+        if self.x_pos - self.radio <= -ancho / 2:
             self.x_vel = abs(self.x_vel)  # Rebote positivo
-            self.x_pos = -width / 2 + self.radio
-        elif self.x_pos + self.radio >= width / 2:
+            self.x_pos = -ancho / 2 + self.radio + ancho/1000
+            self.x_poss[-1] = self.x_pos
+        elif self.x_pos + self.radio >= ancho / 2:
             self.x_vel = -abs(self.x_vel)  # Rebote negativo
-            self.x_pos = width / 2 - self.radio
+            self.x_pos = ancho / 2 - self.radio - ancho/1000
+            self.x_poss[-1] = self.x_pos
             
-        if self.y_pos - self.radio <= -height / 2:
+        if self.y_pos - self.radio <= -altura / 2:
             self.y_vel = abs(self.y_vel)
-            self.y_pos = -height / 2 + self.radio
-        elif self.y_pos + self.radio >= height / 2:
+            self.y_pos = -altura / 2 + self.radio + altura/1000
+            self.y_poss[-1] = self.y_pos
+
+        elif self.y_pos + self.radio >= altura / 2:
             self.y_vel = -abs(self.y_vel)
-            self.y_pos = height / 2 - self.radio
+            self.y_pos = altura / 2 - self.radio - altura/1000
+            self.y_poss[-1] = self.y_pos
 
-    def check_disk_collision(self, other_disk):
+
+    def check_colisionDisco(self, otro_disco):
         
-        dx = self.x_pos - other_disk.x_pos
-        dy = self.y_pos - other_disk.y_pos
-        distance = np.sqrt(dx**2 + dy**2)
+        dx = otro_disco.x_pos - self.x_pos
+        dy = otro_disco.y_pos - self.y_pos
+        distancia = np.sqrt(dx**2 + dy**2)
 
-        if distance < self.radio + other_disk.radio and distance > 0:
-            # Vector normal unitario
-            nx = dx / distance
-            ny = dy / distance
-            # Vector tangente unitario
-            tx = -ny
-            ty = nx
-            # Proyectar velocidades en normal y tangente para disco 1
-            v1n = self.x_vel * nx + self.y_vel * ny
+        if distancia <= (self.radio + otro_disco.radio) and distancia > 0:
+            #Convirtiendo la velocidad a coordenadas polares
+            # Vector radial unitario
+            rx = dx / distancia #cos(θ)
+            ry = dy / distancia #sen(θ) 
+            # Vector angular (theta) unitario
+            tx = -ry #-sen(θ)
+            ty = rx #cos(θ)
+
+            # Cambio para el disco 1
+            v1r = self.x_vel * rx + self.y_vel * ry
             v1t = self.x_vel * tx + self.y_vel * ty
-            # Proyectar velocidades en normal y tangente para disco 2
-            v2n = other_disk.x_vel * nx + other_disk.y_vel * ny
-            v2t = other_disk.x_vel * tx + other_disk.y_vel * ty
+            # Cambio para el disco 2
+            v2r = otro_disco.x_vel * rx + otro_disco.y_vel * ry
+            v2t = otro_disco.x_vel * tx + otro_disco.y_vel * ty
             
-            # En colisión elástica de masas iguales, las velocidades normales se intercambian
-            v1n_new = v2n
-            v2n_new = v1n
-            # Las velocidades tangenciales se mantienen
+            # En colisión elástica de masas iguales, las velocidades radiales se intercambian
+            v1r_new = v2r
+            v2r_new = v1r
+            # Las velocidades angulares se mantienen
             v1t_new = v1t
             v2t_new = v2t
             
             # Convertir de nuevo a coordenadas cartesianas
-            self.x_vel = v1n_new * nx + v1t_new * tx
-            self.y_vel = v1n_new * ny + v1t_new * ty
-            other_disk.x_vel = v2n_new * nx + v2t_new * tx
-            other_disk.y_vel = v2n_new * ny + v2t_new * ty
+            self.x_vel = v1r_new * rx + v1t_new * tx
+            self.y_vel = v1r_new * ry + v1t_new * ty
+            otro_disco.x_vel = v2r_new * rx + v2t_new * tx
+            otro_disco.y_vel = v2r_new * ry + v2t_new * ty
             
-            overlap = (self.radio + other_disk.radio - distance) / 2.0
-            self.x_pos -= overlap * nx
-            self.y_pos -= overlap * ny
-            other_disk.x_pos += overlap * nx
-            other_disk.y_pos += overlap * ny
+            #Separar discos para evitar superposición
+            overlap = (self.radio + otro_disco.radio - distancia) / 2.0
+            self.x_pos -= overlap * rx
+            self.y_pos -= overlap * ry
+            otro_disco.x_pos += overlap * rx
+            otro_disco.y_pos += overlap * ry
             
-            
+            #Actualizar historial de posiciones
             self.x_poss[-1] = self.x_pos
             self.y_poss[-1] = self.y_pos
-            other_disk.x_poss[-1] = other_disk.x_pos
-            other_disk.y_poss[-1] = other_disk.y_pos
+            otro_disco.x_poss[-1] = otro_disco.x_pos
+            otro_disco.y_poss[-1] = otro_disco.y_pos
             
             return True
         return False
@@ -96,17 +107,18 @@ class Disco:
 
 class DiscoSimulation:
     
-    def __init__(self, N, height, width, radio):
+    def __init__(self, N, height, width, radio, dt):
         self.N = N  
         self.altura = height
         self.ancho = width
         self.radio = radio
+        self.pasoTemp = dt
         self.discos = []
 
-    def disk_creation(self):
-        max_attempts = 1000
-        for _ in range(self.N):
-            for attempt in range(max_attempts):
+    def creacionDiscos(self):
+        Max = 1000
+        for i in range(self.N):
+            for intento in range(Max):
                     x_pos = random.uniform(-self.ancho/2 + self.radio, self.ancho/2 - self.radio)
                     y_pos = random.uniform(-self.altura/2 + self.radio, self.altura/2 - self.radio)
                     color = random.choice(['red', 'blue', 'green', 'yellow', 'purple', 'orange'])
@@ -121,27 +133,26 @@ class DiscoSimulation:
                     disco = Disco(x_pos, y_pos, self.radio, color, x_vel, y_vel)
                     
                     # Verificar colisiones con discos existentes
-                    collision = False
+                    colision = False
                     for other in self.discos:
                         dist = np.sqrt((disco.x_pos - other.x_pos)**2 + (disco.y_pos - other.y_pos)**2)
                         if dist < disco.radio + other.radio:
-                            collision = True
+                            colision = True
                             break
                     
-                    if not collision:
+                    if not colision:
                         self.discos.append(disco)
                         break
-                    elif attempt == max_attempts - 1:
-                        print(f"Advertencia: No se pudo colocar el disco {_+1} después de {max_attempts} intentos")
-                        
-            return self.discos
+                    elif intento == Max - 1:
+                        print(f"Advertencia: No se pudo colocar el disco {i+1} después de {Max} intentos")
 
-    def animate_movement(self):
+
+    def animarMovimiento(self):
         fig, ax = plt.subplots()
         ax.set_xlim(-self.ancho/2, self.ancho/2)
         ax.set_ylim(-self.altura/2, self.altura/2)
         ax.set_aspect('equal')
-        ax.set_title('Dinámica Molecular - Discos en 2D')
+        ax.set_title('Colisión de discos en 2D')
         ax.set_xlabel('X')
         ax.set_ylabel('Y')
 
@@ -155,17 +166,16 @@ class DiscoSimulation:
         def init():
             return patches_list
 
-        def animate(i):
-            dt = 0.05
+        def animar(i):
             # Mover todos los discos
             for disco in self.discos:
-                disco.move(dt)
-                disco.check_wall_collision(self.ancho, self.altura)
+                disco.move(self.pasoTemp)
+                disco.check_colisionPared(self.ancho, self.altura)
 
             # Verificar colisiones entre discos (optimizado)
             for i in range(len(self.discos)):
                 for j in range(i + 1, len(self.discos)):
-                    self.discos[i].check_disk_collision(self.discos[j])
+                    self.discos[i].check_colisionDisco(self.discos[j])
 
             # Actualizar posiciones visuales
             for idx, disco in enumerate(self.discos):
@@ -173,9 +183,8 @@ class DiscoSimulation:
 
             return patches_list
 
-        ani = animation.FuncAnimation(fig, animate, init_func=init, frames=500, interval=50, blit=True, repeat=True)
+        ani = animation.FuncAnimation(fig, animar, init_func=init, frames=500, interval=50, blit=True, repeat=True)
         plt.show()
-        return ani
 
 
     def get_positions(self):
@@ -184,6 +193,7 @@ class DiscoSimulation:
             positions.append((disco.x_poss, disco.y_poss))
 
         return positions
+
     def calculate_energy(self):
         energy = 0.0
         for disco in self.discos:
@@ -250,75 +260,11 @@ def determine_collision_event(disks, width, height):
                 event_type = 'disk_collision'
                 disk_indices = (i, j)
 
-    return event_type, disk_indices, min_time
+    return event_type, disk_indices, min_time   
 
 
 
-def save_data(array, file_csv):
-    with open(file_csv, mode='w', newline='') as file_csv:
 
-        writer_csv = csv.writer(file_csv)
-
-        for row in array:
-
-            writer_csv.writerow(row)
-
-def run_and_save_data(N, M, file_csv):
-    
-    Radius = np.sqrt(4/N)*0.5
-
-    sim = DiscoSimulation(N, 5, 5, Radius)
-
-    disks = sim.disk_creation()
-
-    sim.animate_movement()
-
-    while True:
-
-        print("Transcurrieron " + str(len(disks[0].x_poss)) + " instantes de tiempo")
-
-        if len(disks[0].x_poss) > M:
-
-            positions = [[sim.get_positions()[j][0][i] for i in range(M)] for j in range(N)]
-
-            if __name__ == "__main__":
-
-                save_data(positions, file_csv)
-
-                print("Lista de tamaño " + str(len(positions)) + " x " + str(len(positions[0])) + f" guardada en {file_csv}.")
-        break
-
-
-
-run_and_save_data(25, 6000, "data25.csv")
-
-
-def Histogram(N, divisions, file_csv):
-    
-    all_positions_str = []
-
-    with open(file_csv, 'r') as file_csv:
-
-        lector_csv = csv.reader(file_csv)
-
-        for row in lector_csv:
-
-            all_positions_str.extend(row)
-
-    all_positions = [float(i) for i in all_positions_str]
-
-    plt.rcParams.update({'figure.figsize':(7,5), 'figure.dpi':100})
-
-    weights = np.ones_like(all_positions) / len(all_positions)
-
-    plt.hist(all_positions, bins=divisions, weights=weights)
-
-    plt.gca().set(title=f'Histograma de probabilidad para {N} discos', ylabel='Probabilidad')
-
-    plt.xlim(-2.5, 2.5)
-
-    plt.xlabel("Posición x")
-
-    plt.show()
-
-Histogram(25, 100, "data25.csv")                                           
+sim = DiscoSimulation(700, 10, 10, 0.1, 0.02)
+sim.creacionDiscos()
+sim.animarMovimiento()

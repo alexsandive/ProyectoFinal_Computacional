@@ -197,11 +197,68 @@ class DiscoSimulation:
         plt.title(f'Histograma de posiciones de centros de discos (Eje X)\n{self.N} discos')
         plt.grid(True, alpha=0.3)
         
-        plt.show() 
+        plt.show()
 
 
-sim = DiscoSimulation(10, 10, 10, 1, 0.03)
-sim.creacionDiscos()
-sim.animarMovimiento()
-sim.histograma(50)
-sim.histograma(500)
+def time_to_wall_collision(disk, width, height):
+    tx_min = float('inf')
+    ty_min = float('inf')
+    if disk.x_vel > 0:
+        tx_min = (width / 2 - disk.radio - disk.x_pos) / disk.x_vel
+    elif disk.x_vel < 0:
+        tx_min = (-width / 2 + disk.radio - disk.x_pos) / disk.x_vel
+    if disk.y_vel > 0:
+        ty_min = (height / 2 - disk.radio - disk.y_pos) / disk.y_vel
+    elif disk.y_vel < 0:
+        ty_min = (-height / 2 + disk.radio - disk.y_pos) / disk.y_vel
+
+    return min(tx_min, ty_min)
+
+def time_to_disk_collision(disk1, disk2):
+    R_rel = np.array([disk1.x_pos - disk2.x_pos, disk1.y_pos - disk2.y_pos])
+    V_rel = np.array([disk1.x_vel - disk2.x_vel, disk1.y_vel - disk2.y_vel])
+    R_rel_dot_V_rel = np.dot(R_rel, V_rel)
+    V_rel_square = np.dot(V_rel, V_rel)
+    R_rel_square = np.dot(R_rel, R_rel)
+    sum_radius = disk1.radio + disk2.radio
+    if V_rel_square == 0:
+        return float('inf')
+    a = V_rel_square
+    b = 2 * R_rel_dot_V_rel
+    c = R_rel_square - sum_radius**2
+    discriminant = b**2 - 4*a*c
+    if discriminant < 0:
+        return float('inf')
+    t1 = (-b - np.sqrt(discriminant)) / (2 * a)
+    t2 = (-b + np.sqrt(discriminant)) / (2 * a)
+    if t1 > 0 and t2 > 0:
+        return min(t1, t2)
+    elif t1 > 0:
+        return t1
+    elif t2 > 0:
+        return t2
+    else:
+        return float('inf')
+
+def determine_collision_event(disks, width, height):
+    min_time = float('inf')
+    event_type = None
+    disk_indices = (None, None)
+
+    for i, disk1 in enumerate(disks):
+        t_wall_collision = time_to_wall_collision(disk1, width, height)
+        if t_wall_collision < min_time:
+            min_time = t_wall_collision
+            event_type = 'wall_collision'
+            disk_indices = (i, None)
+
+        for j in range(i + 1, len(disks)):
+            disk2 = disks[j]
+            t_disk_collision = time_to_disk_collision(disk1, disk2)
+            if t_disk_collision < min_time:
+                min_time = t_disk_collision
+                event_type = 'disk_collision'
+                disk_indices = (i, j)
+
+    return event_type, disk_indices, min_time   
+

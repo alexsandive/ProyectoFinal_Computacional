@@ -58,13 +58,13 @@ class Disco:
         distancia = np.sqrt(dx**2 + dy**2)
 
         if distancia <= (self.radio + otro_disco.radio) and distancia > 0:
-            #Convirtiendo la velocidad a coordenadas polares
+            # Convirtiendo la velocidad a coordenadas polares
             # Vector radial unitario
-            rx = dx / distancia #cos(θ)
-            ry = dy / distancia #sen(θ) 
+            rx = dx / distancia # cos(θ)
+            ry = dy / distancia # sen(θ) 
             # Vector angular (theta) unitario
-            tx = -ry #-sen(θ)
-            ty = rx #cos(θ)
+            tx = -ry # -sen(θ)
+            ty = rx # cos(θ)
 
             # Cambio para el disco 1
             v1r = self.x_vel * rx + self.y_vel * ry
@@ -86,7 +86,7 @@ class Disco:
             otro_disco.x_vel = v2r_new * rx + v2t_new * tx
             otro_disco.y_vel = v2r_new * ry + v2t_new * ty
             
-            #Separar discos para evitar superposición
+            # Separar discos para evitar superposición
             overlap = (self.radio + otro_disco.radio - distancia) / 2.0
             self.x_pos -= overlap * rx
             self.y_pos -= overlap * ry
@@ -116,8 +116,8 @@ class DiscoSimulation:
         Max = 1000
         for i in range(self.N):
             for intento in range(Max):
-                    x_pos = random.uniform(-self.ancho/2 + self.radio, self.ancho/2 - self.radio)
-                    y_pos = random.uniform(-self.altura/2 + self.radio, self.altura/2 - self.radio)
+                    x_pos = random.uniform(-self.ancho / 2 + self.radio, self.ancho / 2 - self.radio)
+                    y_pos = random.uniform(-self.altura / 2 + self.radio, self.altura / 2 - self.radio)
                     color = random.choice(['red', 'blue', 'green', 'pink', 'purple', 'orange'])
                     x_vel = random.uniform(-3, 3)
                     y_vel = random.uniform(-3, 3)
@@ -146,8 +146,8 @@ class DiscoSimulation:
 
     def animarMovimiento(self):
         fig, ax = plt.subplots()
-        ax.set_xlim(-self.ancho/2, self.ancho/2)
-        ax.set_ylim(-self.altura/2, self.altura/2)
+        ax.set_xlim(-self.ancho / 2, self.ancho / 2)
+        ax.set_ylim(-self.altura / 2, self.altura / 2)
         ax.set_aspect('equal')
         ax.set_title('Colisión de discos en 2D')
         ax.set_xlabel('X')

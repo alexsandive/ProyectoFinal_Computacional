@@ -359,16 +359,24 @@
 
 <h1 id="tutorial">Tutorial</h1>
 <h2 id="uso-basico">Uso básico</h2>
-<p>Para ejecutar una simualción se deben definir los parametros de la simulación, mediante la creación de un objeto de clase <code>DiscoSimulation</code>. Esta clase recibe los parametros en el siguiente orden:
-1. La primera entrada es la cantidad de discos que se quieren simular. Esto representa la cantidad de partículas a estudiar.
-2. La segunda entrada es la altura del espacio limitante. En la simulación se divide en 2 y los límites van desde el valor dividido entre 2 negativo, hasta el valor dividido entre 2 positivo.
-3. La tercer entrada es el ancho del espacio limitante. En la simulación se divide en 2 y los límites van desde el valor dividido entre 2 negativo, hasta el valor dividido entre 2 positivo.
-4. La cuarta entrada representa el radio de los discos.
-5. La quinta entrada representa el salto en el tiempo (un dt). Este salto no puede ser ni muy grande ni muy pequeño, se recomiendan valores entre 0,03 y 0,05.</p>
-<p>Una vez declarado el objeto con todos estos valores se invocan los siguientes métodos:
-1. Primero se llama al método de creación de discos: <code>&lt;objectname&gt;.creacionDiscos()</code>.
-2. Seguidamente se invoca la animación: <code>&lt;objectname&gt;.animarMovimiento()</code>.
-3. Finalmente se llama al método que realiza el histograma, con <code>n</code> el número de columnas en el histograma: <code>&lt;objectname&gt;.histograma(n)</code>.</p>
+<p>Para ejecutar una simualción se deben definir los parametros de la simulación, mediante la creación de un objeto de clase <code>DiscoSimulation</code>. Esta clase recibe los parametros en el siguiente orden:</p>
+<div class="highlight"><pre><span></span><code>1. La **primera entrada** es la **cantidad de discos** que se quieren simular. Esto representa la cantidad de partículas a estudiar.
+
+2. La **segunda entrada** es la **altura** del espacio limitante. En la simulación se divide en 2 y los límites van desde el valor dividido entre 2 negativo, hasta el valor dividido entre 2 positivo.
+
+3. La **tercera entrada** es el **ancho** del espacio limitante. En la simulación se divide en 2 y los límites van desde el valor dividido entre 2 negativo, hasta el valor dividido entre 2 positivo.
+
+4. La **cuarta entrada** representa el **radio** de los discos.
+
+5. La **quinta entrada** representa el **salto en el tiempo** (un **dt**). Este salto no puede ser ni muy grande ni muy pequeño, se recomiendan valores entre 0,03 y 0,05.
+</code></pre></div>
+<p>Una vez declarado el objeto con todos estos valores se invocan los siguientes métodos:</p>
+<div class="highlight"><pre><span></span><code>1. Primero se llama al método de creación de discos: `&lt;objectname&gt;.creacionDiscos()`.
+
+2. Seguidamente se invoca la animación: `&lt;objectname&gt;.animarMovimiento()`.
+
+3. Finalmente se llama al método que realiza el histograma, con `n` el número de columnas en el histograma: `&lt;objectname&gt;.histograma(n)`.
+</code></pre></div>
 <p><div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">Discos</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
 <span class="c1"># Hacer una simulación de 100 discos en un espacio de 32x32</span>
 
@@ -381,7 +389,7 @@ Esto produce una simulación y un histograma</p>
 <p><img alt="Vista de la simulación descrita" src="https://raw.githubusercontent.com/alexsandive/ProyectoFinal_Computacional/main/Evidencias/Simulación100discos.png" />
 <img alt="Histograma producido de la simulación descrita pasados 20 minutos" src="https://raw.githubusercontent.com/alexsandive/ProyectoFinal_Computacional/main/Evidencias/Histograma100discos.png" /></p>
 <h2 id="uso-especializado">Uso especializado</h2>
-<p>Si se desea cambiar aspectos en específico de los discos de la simulación como el radio o la velocidad se cambian en el método de <code>creacionDiscos</code>. Las variables "x_vel" y "y_vel" son las que definen las velocidades iniciales de los discos, estas se pueden ajustar los límites para que sean mayores a 3. También debajo de donde se definen se declara una cota inferior, esta también se puede ajustar para que sea mayor o menor. Si se desea ajustar para tener diferentes radios, se debe declarar una nueva variable y que presente los valores deseados. En este ejemplo se usará un radio aleatorio. </p>
+<p>Si se desea <strong>cambiar</strong> aspectos en específico de los discos de la simulación como el <strong>radio</strong> o la <strong>velocidad</strong> se cambian en el método de <code>creacionDiscos</code>. Las variables <code>x_vel</code> y <code>y_vel</code> son las que definen las <strong>velocidades iniciales</strong> de los discos, estas se pueden <strong>ajustar los límites</strong> para que sean mayores a 3. También debajo de donde se definen se declara una cota inferior, esta también se puede ajustar para que sea mayor o menor. Si se desea ajustar para tener <strong>diferentes radios</strong>, se debe <strong>declarar una nueva variable</strong> y que presente los valores deseados. En este ejemplo se usará un radio aleatorio. </p>
 <p><div class="highlight"><pre><span></span><code><span class="n">Max</span> <span class="o">=</span> <span class="mi">1000</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="p">):</span>
             <span class="k">for</span> <span class="n">intento</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">Max</span><span class="p">):</span>

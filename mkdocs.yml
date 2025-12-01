@@ -3,7 +3,7 @@ site_name: Colisiones de discos en un espacio limitado
 nav:
   - Inicio: index.md
   - Explicación: explanation.md
-  - Tutorial: tutorials.md
+  - Tutorial: tutorial.md
   - Referencia: reference.md
 
 markdown_extensions:

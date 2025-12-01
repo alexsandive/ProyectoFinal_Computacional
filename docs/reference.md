@@ -1,4 +1,4 @@
-# API Reference
+# Referencia del código
 
 ## Colisión de discos
 

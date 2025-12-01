@@ -4,24 +4,24 @@
 
 Para ejecutar una simualción se deben definir los parametros de la simulación, mediante la creación de un objeto de clase `DiscoSimulation`. Esta clase recibe los parametros en el siguiente orden:
     
-    1. La **primera entrada** es la **cantidad de discos** que se quieren simular. Esto representa la cantidad de partículas a estudiar.
+1. La **primera entrada** es la **cantidad de discos** que se quieren simular. Esto representa la cantidad de partículas a estudiar.
     
-    2. La **segunda entrada** es la **altura** del espacio limitante. En la simulación se divide en 2 y los límites van desde el valor dividido entre 2 negativo, hasta el valor dividido entre 2 positivo.
+2. La **segunda entrada** es la **altura** del espacio limitante. En la simulación se divide en 2 y los límites van desde el valor dividido entre 2 negativo, hasta el valor dividido entre 2 positivo.
     
-    3. La **tercera entrada** es el **ancho** del espacio limitante. En la simulación se divide en 2 y los límites van desde el valor dividido entre 2 negativo, hasta el valor dividido entre 2 positivo.
+3. La **tercera entrada** es el **ancho** del espacio limitante. En la simulación se divide en 2 y los límites van desde el valor dividido entre 2 negativo, hasta el valor dividido entre 2 positivo.
     
-    4. La **cuarta entrada** representa el **radio** de los discos.
-    
-    5. La **quinta entrada** representa el **salto en el tiempo** (un **dt**). Este salto no puede ser ni muy grande ni muy pequeño, se recomiendan valores entre 0,03 y 0,05.
+4. La **cuarta entrada** representa el **radio** de los discos.
+   
+5. La **quinta entrada** representa el **salto en el tiempo** (un **dt**). Este salto no puede ser ni muy grande ni muy pequeño, se recomiendan valores entre 0,03 y 0,05.
 
 
 Una vez declarado el objeto con todos estos valores se invocan los siguientes métodos:
+   
+1. Primero se llama al método de creación de discos: `<objectname>.creacionDiscos()`.
+   
+2. Seguidamente se invoca la animación: `<objectname>.animarMovimiento()`.
     
-    1. Primero se llama al método de creación de discos: `<objectname>.creacionDiscos()`.
-    
-    2. Seguidamente se invoca la animación: `<objectname>.animarMovimiento()`.
-    
-    3. Finalmente se llama al método que realiza el histograma, con `n` el número de columnas en el histograma: `<objectname>.histograma(n)`.
+3. Finalmente se llama al método que realiza el histograma, con `n` el número de columnas en el histograma: `<objectname>.histograma(n)`.
 
 
 ```python

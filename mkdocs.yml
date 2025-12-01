@@ -1,10 +1,10 @@
 site_name: Colisiones de discos en un espacio limitado
 
 nav:
-  - Inicio: index.md
-  - Explicación: explanation.md
-  - Tutorial: tutorial.md
-  - Referencia: reference.md
+  - Problema: index.md
+  - Metodología: explanation.md
+  - Ejemplos de uso: tutorial.md
+  - Recursos de implementación: reference.md
 
 markdown_extensions:
   - pymdownx.arithmatex:
@@ -16,7 +16,8 @@ plugins:
   - mkdocstrings
 
 extra_javascript:
-  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
-  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
-
-theme: material
+  - javascripts/mathjax.js
+  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js 
+    
+theme:
+  name: "material"

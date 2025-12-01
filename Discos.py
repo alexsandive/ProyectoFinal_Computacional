@@ -194,7 +194,13 @@ class DiscoSimulation:
 
     def creacionDiscos(self):
         """
-        Intenta crear cada uno de los discos solicitados. Siempre procura que los discos no inicien superpuestos. Si no lo logra crear, lo anuncia con un mensaje.
+        Intenta crear cada uno de los discos solicitados. Siempre procura que los discos no inicien superpuestos, en caso de no lograr esto, lo anuncia con un mensaje. Le asigna un color y el readio solicitado a cada disco.
+
+        Example:
+            >>> DiscoSimulation(100, 60, 60, 1, 0.5)
+            >>> Crea 100 discos de radio 1 dentro de una caja de tamaño 60x60.
+            >>> DiscoSimulation(200, 40, 40, 1, 0.5)
+            >>> Reproduce el siguiente mensaje unas cuantas veces: "Advertencia: No se pudo colocar el disco 200 después de 1000 intentos"
         """
         Max = 1000
         for i in range(self.N):
@@ -229,7 +235,7 @@ class DiscoSimulation:
 
     def animarMovimiento(self):
         """
-        Anima la simulación. Calcula las posiciones de los discos. Maneja las colisiones.
+        Anima la simulación. Calcula las posiciones de los discos. Maneja las colisiones. 
         """
         fig, ax = plt.subplots()
         ax.set_xlim(-self.ancho / 2, self.ancho / 2)
@@ -295,7 +301,7 @@ class DiscoSimulation:
         plt.show() 
 
 
-sim = DiscoSimulation(250, 60, 60, 1, 0.03)
+sim = DiscoSimulation(100, 32, 32, 1, 0.03)
 sim.creacionDiscos()
 sim.animarMovimiento()
 sim.histograma(500)

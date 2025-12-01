@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-Dinámica Molecular
+#Dinámica Molecular
 
 Implementa un sistema conformado por una caja de lado L y N discos de radio r. Estos parten con una velocidad y posición aleatorios. Los discos pueden chocar de forma elástica con las paredes, y entre ellos también. Los discos no poseen rotación.
 """
@@ -11,6 +11,8 @@ import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 import matplotlib.patches as patches
 import random
+
+"# Se utilizan dos clases, la primera es la clase Disco:"
 
 class Disco:
     """
@@ -166,6 +168,7 @@ class Disco:
             return True
         return False
 
+"# La segunda clase es DiscoSimulation:"
 class DiscoSimulation:
     """
     Inicia y genera la simulación.
@@ -176,8 +179,8 @@ class DiscoSimulation:
 
         Args:
             N (int): Número de discos
-            height (float): Altura de la caja.
-            width (float): Ancho de la caja.
+            height (float): Altura del espacio limitado.
+            width (float): Ancho del espacio limitado.
             radio (float): Radio de los discos.
             dt (float): Paso del tiempo.
 
@@ -284,6 +287,12 @@ class DiscoSimulation:
     def histograma(self, bins = 50):
         """
         Dibuja el histograma correspondiente a las posiciones en x de todos los discos.
+        Args:
+            bins (int): Cantidad de columnas del histograma.
+        Example:
+            >>> Teniendo una instancia sim de DiscoSimulation
+            >>> sim.histograma(100) 
+            >>> Dibuja el histograma con 100 columnas.
         """
         posiciones_x = []
 

@@ -18,7 +18,7 @@
     
     
       
-        <title>Referencia - Colisiones de discos en un espacio limitado</title>
+        <title>Recursos de implementación - Colisiones de discos en un espacio limitado</title>
       
     
     
@@ -62,7 +62,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#api-reference" class="md-skip">
+        <a href="#referencia-del-codigo" class="md-skip">
           Skip to content
         </a>
       
@@ -98,7 +98,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Referencia
+              Recursos de implementación
             
           </span>
         </div>
@@ -159,7 +159,7 @@
   
   
   <span class="md-ellipsis">
-    Inicio
+    Problema
     
   </span>
   
@@ -181,7 +181,7 @@
   
   
   <span class="md-ellipsis">
-    Explicación
+    Metodología
     
   </span>
   
@@ -203,7 +203,7 @@
   
   
   <span class="md-ellipsis">
-    Tutorial
+    Ejemplos de uso
     
   </span>
   
@@ -234,7 +234,7 @@
   
   
   <span class="md-ellipsis">
-    Referencia
+    Recursos de implementación
     
   </span>
   
@@ -247,7 +247,7 @@
   
   
   <span class="md-ellipsis">
-    Referencia
+    Recursos de implementación
     
   </span>
   
@@ -287,6 +287,15 @@
   
     <nav class="md-nav" aria-label="Discos">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#Discos--dinamica-molecular" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dinámica Molecular
+    </span>
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#Discos.Disco" class="md-nav__link">
@@ -449,6 +458,15 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#Discos--dinamica-molecular" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dinámica Molecular
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#Discos.Disco" class="md-nav__link">
     <span class="md-ellipsis">
       Disco
@@ -571,7 +589,7 @@
 
 
 
-<h1 id="api-reference">API Reference</h1>
+<h1 id="referencia-del-codigo">Referencia del código</h1>
 <h2 id="colision-de-discos">Colisión de discos</h2>
 
 
@@ -587,7 +605,7 @@
 
     <div class="doc doc-contents first">
 
-        <p>Dinámica Molecular</p>
+        <h3 id="Discos--dinamica-molecular">Dinámica Molecular</h3>
 <p>Implementa un sistema conformado por una caja de lado L y N discos de radio r. Estos parten con una velocidad y posición aleatorios. Los discos pueden chocar de forma elástica con las paredes, y entre ellos también. Los discos no poseen rotación.</p>
 
 
@@ -636,9 +654,7 @@ Determina el movimiento de cada disco; actualiza su posición, comprueba y manej
 
               <details class="quote">
                 <summary>Source code in <code>Discos.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 15</span>
-<span class="normal"> 16</span>
-<span class="normal"> 17</span>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 17</span>
 <span class="normal"> 18</span>
 <span class="normal"> 19</span>
 <span class="normal"> 20</span>
@@ -788,7 +804,9 @@ Determina el movimiento de cada disco; actualiza su posición, comprueba y manej
 <span class="normal">164</span>
 <span class="normal">165</span>
 <span class="normal">166</span>
-<span class="normal">167</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Disco</span><span class="p">:</span>
+<span class="normal">167</span>
+<span class="normal">168</span>
+<span class="normal">169</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Disco</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Clase utilizada para representar un disco.</span>
 
@@ -1096,9 +1114,7 @@ Produce una instancia de un disco rojo de radio 1, ubicado en el centro del cuad
 
             <details class="quote">
               <summary>Source code in <code>Discos.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">23</span>
-<span class="normal">24</span>
-<span class="normal">25</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">25</span>
 <span class="normal">26</span>
 <span class="normal">27</span>
 <span class="normal">28</span>
@@ -1118,7 +1134,9 @@ Produce una instancia de un disco rojo de radio 1, ubicado en el centro del cuad
 <span class="normal">42</span>
 <span class="normal">43</span>
 <span class="normal">44</span>
-<span class="normal">45</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_pos</span><span class="p">,</span> <span class="n">y_pos</span><span class="p">,</span> <span class="n">radio</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">x_vel</span><span class="p">,</span> <span class="n">y_vel</span><span class="p">):</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_pos</span><span class="p">,</span> <span class="n">y_pos</span><span class="p">,</span> <span class="n">radio</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">x_vel</span><span class="p">,</span> <span class="n">y_vel</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Inicia cada instancia de los discos. Crea además un historial de las posiciones tomadas por cada disco.</span>
 
@@ -1216,9 +1234,7 @@ Nuevas posiciones: self.x_pos = -0.025, otro_disco.x_pos = 0.975</p>
 
             <details class="quote">
               <summary>Source code in <code>Discos.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">101</span>
-<span class="normal">102</span>
-<span class="normal">103</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">103</span>
 <span class="normal">104</span>
 <span class="normal">105</span>
 <span class="normal">106</span>
@@ -1282,7 +1298,9 @@ Nuevas posiciones: self.x_pos = -0.025, otro_disco.x_pos = 0.975</p>
 <span class="normal">164</span>
 <span class="normal">165</span>
 <span class="normal">166</span>
-<span class="normal">167</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">check_colisionDisco</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">otro_disco</span><span class="p">):</span>
+<span class="normal">167</span>
+<span class="normal">168</span>
+<span class="normal">169</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">check_colisionDisco</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">otro_disco</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Comprueba la colisión con otros discos. Cuando choca, intercambia las velocidades radiales de los discos, y mantiene la velocidad tangencial constante. Separa ligeramente ambos discos, para evitar errores.</span>
 
@@ -1435,38 +1453,38 @@ Nueva posición: self.x_pos = 3.99</p>
 
             <details class="quote">
               <summary>Source code in <code>Discos.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">67</span>
-<span class="normal">68</span>
-<span class="normal">69</span>
-<span class="normal">70</span>
-<span class="normal">71</span>
-<span class="normal">72</span>
-<span class="normal">73</span>
-<span class="normal">74</span>
-<span class="normal">75</span>
-<span class="normal">76</span>
-<span class="normal">77</span>
-<span class="normal">78</span>
-<span class="normal">79</span>
-<span class="normal">80</span>
-<span class="normal">81</span>
-<span class="normal">82</span>
-<span class="normal">83</span>
-<span class="normal">84</span>
-<span class="normal">85</span>
-<span class="normal">86</span>
-<span class="normal">87</span>
-<span class="normal">88</span>
-<span class="normal">89</span>
-<span class="normal">90</span>
-<span class="normal">91</span>
-<span class="normal">92</span>
-<span class="normal">93</span>
-<span class="normal">94</span>
-<span class="normal">95</span>
-<span class="normal">96</span>
-<span class="normal">97</span>
-<span class="normal">98</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">check_colisionPared</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ancho</span><span class="p">,</span> <span class="n">altura</span><span class="p">):</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 69</span>
+<span class="normal"> 70</span>
+<span class="normal"> 71</span>
+<span class="normal"> 72</span>
+<span class="normal"> 73</span>
+<span class="normal"> 74</span>
+<span class="normal"> 75</span>
+<span class="normal"> 76</span>
+<span class="normal"> 77</span>
+<span class="normal"> 78</span>
+<span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">check_colisionPared</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ancho</span><span class="p">,</span> <span class="n">altura</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Comprueba colisiones con las paredes. En caso de chocar con una pared, invierte la velocidad perpendicular a la pared. Además, recoloca el disco fuera de la pared</span>
 
@@ -1568,9 +1586,7 @@ Nuevas posiciones: self.x_pos = 1.03, self.y_pos = -0.01</p>
 
             <details class="quote">
               <summary>Source code in <code>Discos.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">47</span>
-<span class="normal">48</span>
-<span class="normal">49</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">49</span>
 <span class="normal">50</span>
 <span class="normal">51</span>
 <span class="normal">52</span>
@@ -1586,7 +1602,9 @@ Nuevas posiciones: self.x_pos = 1.03, self.y_pos = -0.01</p>
 <span class="normal">62</span>
 <span class="normal">63</span>
 <span class="normal">64</span>
-<span class="normal">65</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">move</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dt</span><span class="p">):</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">move</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dt</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Actualiza la posición del disco</span>
 
@@ -1644,10 +1662,7 @@ Nuevas posiciones: self.x_pos = 1.03, self.y_pos = -0.01</p>
 
               <details class="quote">
                 <summary>Source code in <code>Discos.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">169</span>
-<span class="normal">170</span>
-<span class="normal">171</span>
-<span class="normal">172</span>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">172</span>
 <span class="normal">173</span>
 <span class="normal">174</span>
 <span class="normal">175</span>
@@ -1776,7 +1791,16 @@ Nuevas posiciones: self.x_pos = 1.03, self.y_pos = -0.01</p>
 <span class="normal">298</span>
 <span class="normal">299</span>
 <span class="normal">300</span>
-<span class="normal">301</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">DiscoSimulation</span><span class="p">:</span>
+<span class="normal">301</span>
+<span class="normal">302</span>
+<span class="normal">303</span>
+<span class="normal">304</span>
+<span class="normal">305</span>
+<span class="normal">306</span>
+<span class="normal">307</span>
+<span class="normal">308</span>
+<span class="normal">309</span>
+<span class="normal">310</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">DiscoSimulation</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Inicia y genera la simulación.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -1786,8 +1810,8 @@ Nuevas posiciones: self.x_pos = 1.03, self.y_pos = -0.01</p>
 
 <span class="sd">        Args:</span>
 <span class="sd">            N (int): Número de discos</span>
-<span class="sd">            height (float): Altura de la caja.</span>
-<span class="sd">            width (float): Ancho de la caja.</span>
+<span class="sd">            height (float): Altura del espacio limitado.</span>
+<span class="sd">            width (float): Ancho del espacio limitado.</span>
 <span class="sd">            radio (float): Radio de los discos.</span>
 <span class="sd">            dt (float): Paso del tiempo.</span>
 
@@ -1894,6 +1918,12 @@ Nuevas posiciones: self.x_pos = 1.03, self.y_pos = -0.01</p>
     <span class="k">def</span><span class="w"> </span><span class="nf">histograma</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bins</span> <span class="o">=</span> <span class="mi">50</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Dibuja el histograma correspondiente a las posiciones en x de todos los discos.</span>
+<span class="sd">        Args:</span>
+<span class="sd">            bins (int): Cantidad de columnas del histograma.</span>
+<span class="sd">        Example:</span>
+<span class="sd">            &gt;&gt;&gt; Teniendo una instancia sim de DiscoSimulation</span>
+<span class="sd">            &gt;&gt;&gt; sim.histograma(100) </span>
+<span class="sd">            &gt;&gt;&gt; Dibuja el histograma con 100 columnas.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">posiciones_x</span> <span class="o">=</span> <span class="p">[]</span>
 
@@ -1975,7 +2005,7 @@ Nuevas posiciones: self.x_pos = 1.03, self.y_pos = -0.01</p>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>Altura de la caja.</p>
+                <p>Altura del espacio limitado.</p>
               </div>
             </td>
             <td>
@@ -1991,7 +2021,7 @@ Nuevas posiciones: self.x_pos = 1.03, self.y_pos = -0.01</p>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>Ancho de la caja.</p>
+                <p>Ancho del espacio limitado.</p>
               </div>
             </td>
             <td>
@@ -2048,10 +2078,7 @@ Crea una simulación con 500 discos de radio 0.01, ubicados dentro de una caja d
 
             <details class="quote">
               <summary>Source code in <code>Discos.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">173</span>
-<span class="normal">174</span>
-<span class="normal">175</span>
-<span class="normal">176</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">176</span>
 <span class="normal">177</span>
 <span class="normal">178</span>
 <span class="normal">179</span>
@@ -2068,14 +2095,17 @@ Crea una simulación con 500 discos de radio 0.01, ubicados dentro de una caja d
 <span class="normal">190</span>
 <span class="normal">191</span>
 <span class="normal">192</span>
-<span class="normal">193</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">radio</span><span class="p">,</span> <span class="n">dt</span><span class="p">):</span>
+<span class="normal">193</span>
+<span class="normal">194</span>
+<span class="normal">195</span>
+<span class="normal">196</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">radio</span><span class="p">,</span> <span class="n">dt</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Inicia los parámetros que se mantienen constantes en la simulación.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        N (int): Número de discos</span>
-<span class="sd">        height (float): Altura de la caja.</span>
-<span class="sd">        width (float): Ancho de la caja.</span>
+<span class="sd">        height (float): Altura del espacio limitado.</span>
+<span class="sd">        width (float): Ancho del espacio limitado.</span>
 <span class="sd">        radio (float): Radio de los discos.</span>
 <span class="sd">        dt (float): Paso del tiempo.</span>
 
@@ -2111,10 +2141,7 @@ Crea una simulación con 500 discos de radio 0.01, ubicados dentro de una caja d
 
             <details class="quote">
               <summary>Source code in <code>Discos.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">236</span>
-<span class="normal">237</span>
-<span class="normal">238</span>
-<span class="normal">239</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">239</span>
 <span class="normal">240</span>
 <span class="normal">241</span>
 <span class="normal">242</span>
@@ -2156,7 +2183,10 @@ Crea una simulación con 500 discos de radio 0.01, ubicados dentro de una caja d
 <span class="normal">278</span>
 <span class="normal">279</span>
 <span class="normal">280</span>
-<span class="normal">281</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">animarMovimiento</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="normal">281</span>
+<span class="normal">282</span>
+<span class="normal">283</span>
+<span class="normal">284</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">animarMovimiento</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Anima la simulación. Calcula las posiciones de los discos. Maneja las colisiones. </span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -2238,10 +2268,7 @@ Reproduce el siguiente mensaje unas cuantas veces: "Advertencia: No se pudo colo
 
             <details class="quote">
               <summary>Source code in <code>Discos.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">195</span>
-<span class="normal">196</span>
-<span class="normal">197</span>
-<span class="normal">198</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">198</span>
 <span class="normal">199</span>
 <span class="normal">200</span>
 <span class="normal">201</span>
@@ -2276,7 +2303,10 @@ Reproduce el siguiente mensaje unas cuantas veces: "Advertencia: No se pudo colo
 <span class="normal">230</span>
 <span class="normal">231</span>
 <span class="normal">232</span>
-<span class="normal">233</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">creacionDiscos</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="normal">233</span>
+<span class="normal">234</span>
+<span class="normal">235</span>
+<span class="normal">236</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">creacionDiscos</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Intenta crear cada uno de los discos solicitados. Siempre procura que los discos no inicien superpuestos, en caso de no lograr esto, lo anuncia con un mensaje. Le asigna un color y el readio solicitado a cada disco.</span>
 
@@ -2332,15 +2362,18 @@ Reproduce el siguiente mensaje unas cuantas veces: "Advertencia: No se pudo colo
 
     <div class="doc doc-contents ">
 
-        <p>Dibuja el histograma correspondiente a las posiciones en x de todos los discos.</p>
+        <p>Dibuja el histograma correspondiente a las posiciones en x de todos los discos.
+Args:
+    bins (int): Cantidad de columnas del histograma.
+Example:
+    &gt;&gt;&gt; Teniendo una instancia sim de DiscoSimulation
+    &gt;&gt;&gt; sim.histograma(100) 
+    &gt;&gt;&gt; Dibuja el histograma con 100 columnas.</p>
 
 
             <details class="quote">
               <summary>Source code in <code>Discos.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">284</span>
-<span class="normal">285</span>
-<span class="normal">286</span>
-<span class="normal">287</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">287</span>
 <span class="normal">288</span>
 <span class="normal">289</span>
 <span class="normal">290</span>
@@ -2354,9 +2387,24 @@ Reproduce el siguiente mensaje unas cuantas veces: "Advertencia: No se pudo colo
 <span class="normal">298</span>
 <span class="normal">299</span>
 <span class="normal">300</span>
-<span class="normal">301</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">histograma</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bins</span> <span class="o">=</span> <span class="mi">50</span><span class="p">):</span>
+<span class="normal">301</span>
+<span class="normal">302</span>
+<span class="normal">303</span>
+<span class="normal">304</span>
+<span class="normal">305</span>
+<span class="normal">306</span>
+<span class="normal">307</span>
+<span class="normal">308</span>
+<span class="normal">309</span>
+<span class="normal">310</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">histograma</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bins</span> <span class="o">=</span> <span class="mi">50</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Dibuja el histograma correspondiente a las posiciones en x de todos los discos.</span>
+<span class="sd">    Args:</span>
+<span class="sd">        bins (int): Cantidad de columnas del histograma.</span>
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; Teniendo una instancia sim de DiscoSimulation</span>
+<span class="sd">        &gt;&gt;&gt; sim.histograma(100) </span>
+<span class="sd">        &gt;&gt;&gt; Dibuja el histograma con 100 columnas.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">posiciones_x</span> <span class="o">=</span> <span class="p">[]</span>
 
@@ -2447,7 +2495,7 @@ Reproduce el siguiente mensaje unas cuantas veces: "Advertencia: No se pudo colo
     
       <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
       
-        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="../javascripts/config.js"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

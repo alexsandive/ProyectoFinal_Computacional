@@ -16,7 +16,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.17">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.20">
     
     
       
@@ -24,7 +24,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.7e37652d.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.e53b48f4.min.css">
       
       
 
@@ -258,6 +258,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#uso-especializado" class="md-nav__link">
+    <span class="md-ellipsis">
+      Uso especializado
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -323,6 +332,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#uso-especializado" class="md-nav__link">
+    <span class="md-ellipsis">
+      Uso especializado
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -341,6 +359,24 @@
 
 <h1 id="tutorial">Tutorial</h1>
 <h2 id="uso-basico">Uso básico</h2>
+<p>Para ejecutar una simualción se deben definir los parametros de la simulación, mediante la creación de un objeto de clase <code>DiscoSimulation</code>. Esta clase recibe los parametros en el siguiente orden:</p>
+<div class="highlight"><pre><span></span><code>1. La **primera entrada** es la **cantidad de discos** que se quieren simular. Esto representa la cantidad de partículas a estudiar.
+
+2. La **segunda entrada** es la **altura** del espacio limitante. En la simulación se divide en 2 y los límites van desde el valor dividido entre 2 negativo, hasta el valor dividido entre 2 positivo.
+
+3. La **tercera entrada** es el **ancho** del espacio limitante. En la simulación se divide en 2 y los límites van desde el valor dividido entre 2 negativo, hasta el valor dividido entre 2 positivo.
+
+4. La **cuarta entrada** representa el **radio** de los discos.
+
+5. La **quinta entrada** representa el **salto en el tiempo** (un **dt**). Este salto no puede ser ni muy grande ni muy pequeño, se recomiendan valores entre 0,03 y 0,05.
+</code></pre></div>
+<p>Una vez declarado el objeto con todos estos valores se invocan los siguientes métodos:</p>
+<div class="highlight"><pre><span></span><code>1. Primero se llama al método de creación de discos: `&lt;objectname&gt;.creacionDiscos()`.
+
+2. Seguidamente se invoca la animación: `&lt;objectname&gt;.animarMovimiento()`.
+
+3. Finalmente se llama al método que realiza el histograma, con `n` el número de columnas en el histograma: `&lt;objectname&gt;.histograma(n)`.
+</code></pre></div>
 <p><div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">Discos</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
 <span class="c1"># Hacer una simulación de 100 discos en un espacio de 32x32</span>
 
@@ -352,6 +388,40 @@
 Esto produce una simulación y un histograma</p>
 <p><img alt="Vista de la simulación descrita" src="https://raw.githubusercontent.com/alexsandive/ProyectoFinal_Computacional/main/Evidencias/Simulación100discos.png" />
 <img alt="Histograma producido de la simulación descrita pasados 20 minutos" src="https://raw.githubusercontent.com/alexsandive/ProyectoFinal_Computacional/main/Evidencias/Histograma100discos.png" /></p>
+<h2 id="uso-especializado">Uso especializado</h2>
+<p>Si se desea <strong>cambiar</strong> aspectos en específico de los discos de la simulación como el <strong>radio</strong> o la <strong>velocidad</strong> se cambian en el método de <code>creacionDiscos</code>. Las variables <code>x_vel</code> y <code>y_vel</code> son las que definen las <strong>velocidades iniciales</strong> de los discos, estas se pueden <strong>ajustar los límites</strong> para que sean mayores a 3. También debajo de donde se definen se declara una cota inferior, esta también se puede ajustar para que sea mayor o menor. Si se desea ajustar para tener <strong>diferentes radios</strong>, se debe <strong>declarar una nueva variable</strong> y que presente los valores deseados. En este ejemplo se usará un radio aleatorio. </p>
+<p><div class="highlight"><pre><span></span><code><span class="n">Max</span> <span class="o">=</span> <span class="mi">1000</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">intento</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">Max</span><span class="p">):</span>
+                <span class="n">x_pos</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">ancho</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">radio</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ancho</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">radio</span><span class="p">)</span>
+                <span class="n">y_pos</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">altura</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">radio</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">altura</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">radio</span><span class="p">)</span>
+                <span class="n">color</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="s1">&#39;pink&#39;</span><span class="p">,</span> <span class="s1">&#39;purple&#39;</span><span class="p">,</span> <span class="s1">&#39;orange&#39;</span><span class="p">])</span>
+                <span class="n">x_vel</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span> <span class="c1"># Nuevos valores máximos de la velocidad en x</span>
+                <span class="n">y_vel</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span> <span class="c1"># Nuevos valores máximos de la velocidad en y</span>
+                <span class="n">r_rand</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span> <span class="c1"># Declaración de una variable que tiene valores aleatorios por encima de 0</span>
+
+                <span class="c1"># Asegurar velocidad mínima</span>
+                <span class="k">while</span> <span class="nb">abs</span><span class="p">(</span><span class="n">x_vel</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">abs</span><span class="p">(</span><span class="n">y_vel</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span> <span class="c1"># Nueva cota inferior</span>
+                    <span class="n">x_vel</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span> <span class="c1"># Nuevos valores máximos </span>
+                    <span class="n">y_vel</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span> <span class="c1"># Nuevos valores máximos</span>
+
+                <span class="n">disco</span> <span class="o">=</span> <span class="n">Disco</span><span class="p">(</span><span class="n">x_pos</span><span class="p">,</span> <span class="n">y_pos</span><span class="p">,</span> <span class="n">r_rand</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">x_vel</span><span class="p">,</span> <span class="n">y_vel</span><span class="p">)</span> <span class="c1"># Se usa la nueva variable para los radios de los discos</span>
+
+                <span class="c1"># Verificar colisiones con discos existentes</span>
+                <span class="n">colision</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="k">for</span> <span class="n">other</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">discos</span><span class="p">:</span>
+                    <span class="n">dist</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">disco</span><span class="o">.</span><span class="n">x_pos</span> <span class="o">-</span> <span class="n">other</span><span class="o">.</span><span class="n">x_pos</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">disco</span><span class="o">.</span><span class="n">y_pos</span> <span class="o">-</span> <span class="n">other</span><span class="o">.</span><span class="n">y_pos</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">dist</span> <span class="o">&lt;</span> <span class="n">disco</span><span class="o">.</span><span class="n">radio</span> <span class="o">+</span> <span class="n">other</span><span class="o">.</span><span class="n">radio</span><span class="p">:</span>
+                        <span class="n">colision</span> <span class="o">=</span> <span class="kc">True</span>
+                        <span class="k">break</span>
+
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">colision</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">discos</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">disco</span><span class="p">)</span>
+                    <span class="k">break</span>
+                <span class="k">elif</span> <span class="n">intento</span> <span class="o">==</span> <span class="n">Max</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Advertencia: No se pudo colocar el disco </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2"> después de </span><span class="si">{</span><span class="n">Max</span><span class="si">}</span><span class="s2"> intentos&quot;</span><span class="p">)</span>
+</code></pre></div>
+<img alt="Vista de la simulación descrita" src="https://raw.githubusercontent.com/alexsandive/ProyectoFinal_Computacional/main/Evidencias/DiscosdiferenteR.png" /></p>
 
 
 
@@ -403,11 +473,11 @@ Esto produce una simulación y un histograma</p>
       <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.92b07e13.min.js"></script>
+      <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
       
-        <script src="../javascripts/mathjax.js"></script>
+        <script src="../javascripts/config.js"></script>
       
-        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
   </body>

@@ -13,6 +13,6 @@ sim.histograma(500)
 ```
 Esto produce una simulación y un histograma
 
-![Vista de la simulación descrita](https://raw.githubusercontent.com/DnSalasAr/ProyectoFinal_Computacional/main/Evidencias/Simulación100discos.png)
+![Vista de la simulación descrita](https://raw.githubusercontent.com/alexsandive/ProyectoFinal_Computacional/main/Evidencias/Simulación100discos.png)
 ![Histograma producido de la simulación descrita pasados 20 minutos](https://raw.githubusercontent.com/DnSalasAr/ProyectoFinal_Computacional/main/Evidencias/Histograma100discos.png)
 

@@ -360,23 +360,35 @@
 <h1 id="tutorial">Tutorial</h1>
 <h2 id="uso-basico">Uso básico</h2>
 <p>Para ejecutar una simualción se deben definir los parametros de la simulación, mediante la creación de un objeto de clase <code>DiscoSimulation</code>. Esta clase recibe los parametros en el siguiente orden:</p>
-<div class="highlight"><pre><span></span><code>1. La **primera entrada** es la **cantidad de discos** que se quieren simular. Esto representa la cantidad de partículas a estudiar.
-
-2. La **segunda entrada** es la **altura** del espacio limitante. En la simulación se divide en 2 y los límites van desde el valor dividido entre 2 negativo, hasta el valor dividido entre 2 positivo.
-
-3. La **tercera entrada** es el **ancho** del espacio limitante. En la simulación se divide en 2 y los límites van desde el valor dividido entre 2 negativo, hasta el valor dividido entre 2 positivo.
-
-4. La **cuarta entrada** representa el **radio** de los discos.
-
-5. La **quinta entrada** representa el **salto en el tiempo** (un **dt**). Este salto no puede ser ni muy grande ni muy pequeño, se recomiendan valores entre 0,03 y 0,05.
-</code></pre></div>
+<ol>
+<li>
+<p>La <strong>primera entrada</strong> es la <strong>cantidad de discos</strong> que se quieren simular. Esto representa la cantidad de partículas a estudiar.</p>
+</li>
+<li>
+<p>La <strong>segunda entrada</strong> es la <strong>altura</strong> del espacio limitante. En la simulación se divide en 2 y los límites van desde el valor dividido entre 2 negativo, hasta el valor dividido entre 2 positivo.</p>
+</li>
+<li>
+<p>La <strong>tercera entrada</strong> es el <strong>ancho</strong> del espacio limitante. En la simulación se divide en 2 y los límites van desde el valor dividido entre 2 negativo, hasta el valor dividido entre 2 positivo.</p>
+</li>
+<li>
+<p>La <strong>cuarta entrada</strong> representa el <strong>radio</strong> de los discos.</p>
+</li>
+<li>
+<p>La <strong>quinta entrada</strong> representa el <strong>salto en el tiempo</strong> (un <strong>dt</strong>). Este salto no puede ser ni muy grande ni muy pequeño, se recomiendan valores entre 0,03 y 0,05.</p>
+</li>
+</ol>
 <p>Una vez declarado el objeto con todos estos valores se invocan los siguientes métodos:</p>
-<div class="highlight"><pre><span></span><code>1. Primero se llama al método de creación de discos: `&lt;objectname&gt;.creacionDiscos()`.
-
-2. Seguidamente se invoca la animación: `&lt;objectname&gt;.animarMovimiento()`.
-
-3. Finalmente se llama al método que realiza el histograma, con `n` el número de columnas en el histograma: `&lt;objectname&gt;.histograma(n)`.
-</code></pre></div>
+<ol>
+<li>
+<p>Primero se llama al método de creación de discos: <code>&lt;objectname&gt;.creacionDiscos()</code>.</p>
+</li>
+<li>
+<p>Seguidamente se invoca la animación: <code>&lt;objectname&gt;.animarMovimiento()</code>.</p>
+</li>
+<li>
+<p>Finalmente se llama al método que realiza el histograma, con <code>n</code> el número de columnas en el histograma: <code>&lt;objectname&gt;.histograma(n)</code>.</p>
+</li>
+</ol>
 <p><div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">Discos</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
 <span class="c1"># Hacer una simulación de 100 discos en un espacio de 32x32</span>
 

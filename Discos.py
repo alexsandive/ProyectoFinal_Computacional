@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 """
-#Dinámica Molecular
+# Dinámica Molecular
 
-Implementa un sistema conformado por una caja de lado L y N discos de radio r. Estos parten con una velocidad y posición aleatorios. Los discos pueden chocar de forma elástica con las paredes, y entre ellos también. Los discos no poseen rotación.
+Implementa un sistema conformado por un espacio rectangular con anchura y altura definibles, y una cantidad de discos a elección con cierto radio propuesto. Estos parten con una velocidad y posición aleatorios. Los discos chocan de forma elástica con las paredes, y entre ellos también. Los discos no poseen rotación. No se consideran fuerzas de fricción ni de otro tipo.
 """
 
 
@@ -12,7 +12,9 @@ import matplotlib.animation as animation
 import matplotlib.patches as patches
 import random
 
-"# Se utilizan dos clases, la primera es la clase Disco:"
+"""
+## Se utilizan dos clases, la primera es la clase Disco:
+"""
 
 class Disco:
     """
@@ -36,6 +38,7 @@ class Disco:
             
         Example:
             >>> Disco(0, 0, 1, "red", 1, 2)
+            
             >>> Produce una instancia de un disco rojo de radio 1, ubicado en el centro del cuadro, con velocidad (1, 2)
         """
         self.x_pos = x_pos
@@ -55,11 +58,17 @@ class Disco:
 
         Example:
             >>> self.x_pos = 1.0
+            
             >>> self.y_pos = 0.0
+            
             >>> self.x_vel = 3.0
+            
             >>> self.y_vel = -1.0
+            
             >>> dt = 0.01
+            
             >>> self.move(0.01)
+            
             >>> Nuevas posiciones: self.x_pos = 1.03, self.y_pos = -0.01
         """
         self.x_pos += self.x_vel * dt
@@ -71,16 +80,22 @@ class Disco:
         Comprueba colisiones con las paredes. En caso de chocar con una pared, invierte la velocidad perpendicular a la pared. Además, recoloca el disco fuera de la pared
 
         Args:
-            ancho (float): Ancho de la caja
-            altura (float): Alto de la caja
+            ancho (float): Ancho del espacop limitado
+            altura (float): Alto del espacio limitado
 
         Example:
             >>> ancho = 10
+            
             >>> largo = 10
+            
             >>> self.r = 1
+            
             >>> self.x_pos = 4.01
+            
             >>> self.y_pos = 0
+            
             >>> Nueva velocidad: self.x_vel = -self.x_vel
+            
             >>> Nueva posición: self.x_pos = 3.99
         """
         if self.x_pos - self.radio <= -ancho / 2:
@@ -109,16 +124,27 @@ class Disco:
 
         Example:
             >>> self.r = 1.0
+
             >>> self.x_pos = 0.0
+            
             >>> self.y_pos = 0.0
+            
             >>> self.x_vel = 2.0
+            
             >>> self.y_vel = 0.0
+            
             >>> otro_disco.x
+            
             >>> otro_disco.x_pos = 0.95
+            
             >>> otro_disco.y_pos = 0.0
+            
             >>> otro_disco.x_vel = -5.0
+            
             >>> otro_disco.y_vel = 0.0
+            
             >>> Nuevas velocidades: self.x_vel = -5.0, otro_disco.x_vel = 2.0
+            
             >>> Nuevas posiciones: self.x_pos = -0.025, otro_disco.x_pos = 0.975
         """
         dx = otro_disco.x_pos - self.x_pos
@@ -168,7 +194,10 @@ class Disco:
             return True
         return False
 
-"# La segunda clase es DiscoSimulation:"
+"""
+## La segunda clase es DiscoSimulation:
+"""
+
 class DiscoSimulation:
     """
     Inicia y genera la simulación.
@@ -186,7 +215,8 @@ class DiscoSimulation:
 
         Example:
             >>> DiscoSimulation(500, 10, 10, 0.01, 0.5)
-            >>> Crea una simulación con 500 discos de radio 0.01, ubicados dentro de una caja de tamaño 10x10. El paso del tiempo es de 0.5.
+            
+            >>> Crea una simulación con 500 discos de radio 0.01, ubicados dentro de un espacio limitado de 10x10. El paso del tiempo es de 0.5.
         """
         self.N = N
         self.altura = height
@@ -201,7 +231,8 @@ class DiscoSimulation:
 
         Example:
             >>> DiscoSimulation(100, 60, 60, 1, 0.5)
-            >>> Crea 100 discos de radio 1 dentro de una caja de tamaño 60x60.
+            >>> Crea 100 discos de radio 1 dentro de un espacio limitado de 60x60.
+            
             >>> DiscoSimulation(200, 40, 40, 1, 0.5)
             >>> Reproduce el siguiente mensaje unas cuantas veces: "Advertencia: No se pudo colocar el disco 200 después de 1000 intentos"
         """
@@ -293,6 +324,7 @@ class DiscoSimulation:
 
         Example:
             >>> Teniendo una instancia sim de DiscoSimulation
+            
             >>> sim.histograma(100) 
             >>> Dibuja el histograma con 100 columnas.
         """

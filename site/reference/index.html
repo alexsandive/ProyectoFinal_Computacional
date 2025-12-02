@@ -606,7 +606,7 @@
     <div class="doc doc-contents first">
 
         <h3 id="Discos--dinamica-molecular">Dinámica Molecular</h3>
-<p>Implementa un sistema conformado por una caja de lado L y N discos de radio r. Estos parten con una velocidad y posición aleatorios. Los discos pueden chocar de forma elástica con las paredes, y entre ellos también. Los discos no poseen rotación.</p>
+<p>Implementa un sistema conformado por un espacio rectangular con anchura y altura definibles, y una cantidad de discos a elección con cierto radio propuesto. Estos parten con una velocidad y posición aleatorios. Los discos chocan de forma elástica con las paredes, y entre ellos también. Los discos no poseen rotación. No se consideran fuerzas de fricción ni de otro tipo.</p>
 
 
 
@@ -654,9 +654,7 @@ Determina el movimiento de cada disco; actualiza su posición, comprueba y manej
 
               <details class="quote">
                 <summary>Source code in <code>Discos.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 17</span>
-<span class="normal"> 18</span>
-<span class="normal"> 19</span>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 19</span>
 <span class="normal"> 20</span>
 <span class="normal"> 21</span>
 <span class="normal"> 22</span>
@@ -806,7 +804,33 @@ Determina el movimiento de cada disco; actualiza su posición, comprueba y manej
 <span class="normal">166</span>
 <span class="normal">167</span>
 <span class="normal">168</span>
-<span class="normal">169</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Disco</span><span class="p">:</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span>
+<span class="normal">174</span>
+<span class="normal">175</span>
+<span class="normal">176</span>
+<span class="normal">177</span>
+<span class="normal">178</span>
+<span class="normal">179</span>
+<span class="normal">180</span>
+<span class="normal">181</span>
+<span class="normal">182</span>
+<span class="normal">183</span>
+<span class="normal">184</span>
+<span class="normal">185</span>
+<span class="normal">186</span>
+<span class="normal">187</span>
+<span class="normal">188</span>
+<span class="normal">189</span>
+<span class="normal">190</span>
+<span class="normal">191</span>
+<span class="normal">192</span>
+<span class="normal">193</span>
+<span class="normal">194</span>
+<span class="normal">195</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Disco</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Clase utilizada para representar un disco.</span>
 
@@ -828,6 +852,7 @@ Determina el movimiento de cada disco; actualiza su posición, comprueba y manej
 
 <span class="sd">        Example:</span>
 <span class="sd">            &gt;&gt;&gt; Disco(0, 0, 1, &quot;red&quot;, 1, 2)</span>
+
 <span class="sd">            &gt;&gt;&gt; Produce una instancia de un disco rojo de radio 1, ubicado en el centro del cuadro, con velocidad (1, 2)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">x_pos</span> <span class="o">=</span> <span class="n">x_pos</span>
@@ -847,11 +872,17 @@ Determina el movimiento de cada disco; actualiza su posición, comprueba y manej
 
 <span class="sd">        Example:</span>
 <span class="sd">            &gt;&gt;&gt; self.x_pos = 1.0</span>
+
 <span class="sd">            &gt;&gt;&gt; self.y_pos = 0.0</span>
+
 <span class="sd">            &gt;&gt;&gt; self.x_vel = 3.0</span>
+
 <span class="sd">            &gt;&gt;&gt; self.y_vel = -1.0</span>
+
 <span class="sd">            &gt;&gt;&gt; dt = 0.01</span>
+
 <span class="sd">            &gt;&gt;&gt; self.move(0.01)</span>
+
 <span class="sd">            &gt;&gt;&gt; Nuevas posiciones: self.x_pos = 1.03, self.y_pos = -0.01</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">x_pos</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_vel</span> <span class="o">*</span> <span class="n">dt</span>
@@ -863,16 +894,22 @@ Determina el movimiento de cada disco; actualiza su posición, comprueba y manej
 <span class="sd">        Comprueba colisiones con las paredes. En caso de chocar con una pared, invierte la velocidad perpendicular a la pared. Además, recoloca el disco fuera de la pared</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            ancho (float): Ancho de la caja</span>
-<span class="sd">            altura (float): Alto de la caja</span>
+<span class="sd">            ancho (float): Ancho del espacop limitado</span>
+<span class="sd">            altura (float): Alto del espacio limitado</span>
 
 <span class="sd">        Example:</span>
 <span class="sd">            &gt;&gt;&gt; ancho = 10</span>
+
 <span class="sd">            &gt;&gt;&gt; largo = 10</span>
+
 <span class="sd">            &gt;&gt;&gt; self.r = 1</span>
+
 <span class="sd">            &gt;&gt;&gt; self.x_pos = 4.01</span>
+
 <span class="sd">            &gt;&gt;&gt; self.y_pos = 0</span>
+
 <span class="sd">            &gt;&gt;&gt; Nueva velocidad: self.x_vel = -self.x_vel</span>
+
 <span class="sd">            &gt;&gt;&gt; Nueva posición: self.x_pos = 3.99</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_pos</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">radio</span> <span class="o">&lt;=</span> <span class="o">-</span><span class="n">ancho</span> <span class="o">/</span> <span class="mi">2</span><span class="p">:</span>
@@ -901,16 +938,27 @@ Determina el movimiento de cada disco; actualiza su posición, comprueba y manej
 
 <span class="sd">        Example:</span>
 <span class="sd">            &gt;&gt;&gt; self.r = 1.0</span>
+
 <span class="sd">            &gt;&gt;&gt; self.x_pos = 0.0</span>
+
 <span class="sd">            &gt;&gt;&gt; self.y_pos = 0.0</span>
+
 <span class="sd">            &gt;&gt;&gt; self.x_vel = 2.0</span>
+
 <span class="sd">            &gt;&gt;&gt; self.y_vel = 0.0</span>
+
 <span class="sd">            &gt;&gt;&gt; otro_disco.x</span>
+
 <span class="sd">            &gt;&gt;&gt; otro_disco.x_pos = 0.95</span>
+
 <span class="sd">            &gt;&gt;&gt; otro_disco.y_pos = 0.0</span>
+
 <span class="sd">            &gt;&gt;&gt; otro_disco.x_vel = -5.0</span>
+
 <span class="sd">            &gt;&gt;&gt; otro_disco.y_vel = 0.0</span>
+
 <span class="sd">            &gt;&gt;&gt; Nuevas velocidades: self.x_vel = -5.0, otro_disco.x_vel = 2.0</span>
+
 <span class="sd">            &gt;&gt;&gt; Nuevas posiciones: self.x_pos = -0.025, otro_disco.x_pos = 0.975</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">dx</span> <span class="o">=</span> <span class="n">otro_disco</span><span class="o">.</span><span class="n">x_pos</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_pos</span>
@@ -1105,8 +1153,8 @@ Determina el movimiento de cada disco; actualiza su posición, comprueba y manej
   <blockquote>
 <blockquote>
 <blockquote>
-<p>Disco(0, 0, 1, "red", 1, 2)
-Produce una instancia de un disco rojo de radio 1, ubicado en el centro del cuadro, con velocidad (1, 2)</p>
+<p>Disco(0, 0, 1, "red", 1, 2)</p>
+<p>Produce una instancia de un disco rojo de radio 1, ubicado en el centro del cuadro, con velocidad (1, 2)</p>
 </blockquote>
 </blockquote>
 </blockquote>
@@ -1114,9 +1162,7 @@ Produce una instancia de un disco rojo de radio 1, ubicado en el centro del cuad
 
             <details class="quote">
               <summary>Source code in <code>Discos.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">25</span>
-<span class="normal">26</span>
-<span class="normal">27</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">27</span>
 <span class="normal">28</span>
 <span class="normal">29</span>
 <span class="normal">30</span>
@@ -1136,7 +1182,10 @@ Produce una instancia de un disco rojo de radio 1, ubicado en el centro del cuad
 <span class="normal">44</span>
 <span class="normal">45</span>
 <span class="normal">46</span>
-<span class="normal">47</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_pos</span><span class="p">,</span> <span class="n">y_pos</span><span class="p">,</span> <span class="n">radio</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">x_vel</span><span class="p">,</span> <span class="n">y_vel</span><span class="p">):</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_pos</span><span class="p">,</span> <span class="n">y_pos</span><span class="p">,</span> <span class="n">radio</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">x_vel</span><span class="p">,</span> <span class="n">y_vel</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Inicia cada instancia de los discos. Crea además un historial de las posiciones tomadas por cada disco.</span>
 
@@ -1150,6 +1199,7 @@ Produce una instancia de un disco rojo de radio 1, ubicado en el centro del cuad
 
 <span class="sd">    Example:</span>
 <span class="sd">        &gt;&gt;&gt; Disco(0, 0, 1, &quot;red&quot;, 1, 2)</span>
+
 <span class="sd">        &gt;&gt;&gt; Produce una instancia de un disco rojo de radio 1, ubicado en el centro del cuadro, con velocidad (1, 2)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">x_pos</span> <span class="o">=</span> <span class="n">x_pos</span>
@@ -1215,18 +1265,18 @@ Produce una instancia de un disco rojo de radio 1, ubicado en el centro del cuad
   <blockquote>
 <blockquote>
 <blockquote>
-<p>self.r = 1.0
-self.x_pos = 0.0
-self.y_pos = 0.0
-self.x_vel = 2.0
-self.y_vel = 0.0
-otro_disco.x
-otro_disco.x_pos = 0.95
-otro_disco.y_pos = 0.0
-otro_disco.x_vel = -5.0
-otro_disco.y_vel = 0.0
-Nuevas velocidades: self.x_vel = -5.0, otro_disco.x_vel = 2.0
-Nuevas posiciones: self.x_pos = -0.025, otro_disco.x_pos = 0.975</p>
+<p>self.r = 1.0</p>
+<p>self.x_pos = 0.0</p>
+<p>self.y_pos = 0.0</p>
+<p>self.x_vel = 2.0</p>
+<p>self.y_vel = 0.0</p>
+<p>otro_disco.x</p>
+<p>otro_disco.x_pos = 0.95</p>
+<p>otro_disco.y_pos = 0.0</p>
+<p>otro_disco.x_vel = -5.0</p>
+<p>otro_disco.y_vel = 0.0</p>
+<p>Nuevas velocidades: self.x_vel = -5.0, otro_disco.x_vel = 2.0</p>
+<p>Nuevas posiciones: self.x_pos = -0.025, otro_disco.x_pos = 0.975</p>
 </blockquote>
 </blockquote>
 </blockquote>
@@ -1234,22 +1284,7 @@ Nuevas posiciones: self.x_pos = -0.025, otro_disco.x_pos = 0.975</p>
 
             <details class="quote">
               <summary>Source code in <code>Discos.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">103</span>
-<span class="normal">104</span>
-<span class="normal">105</span>
-<span class="normal">106</span>
-<span class="normal">107</span>
-<span class="normal">108</span>
-<span class="normal">109</span>
-<span class="normal">110</span>
-<span class="normal">111</span>
-<span class="normal">112</span>
-<span class="normal">113</span>
-<span class="normal">114</span>
-<span class="normal">115</span>
-<span class="normal">116</span>
-<span class="normal">117</span>
-<span class="normal">118</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">118</span>
 <span class="normal">119</span>
 <span class="normal">120</span>
 <span class="normal">121</span>
@@ -1300,7 +1335,33 @@ Nuevas posiciones: self.x_pos = -0.025, otro_disco.x_pos = 0.975</p>
 <span class="normal">166</span>
 <span class="normal">167</span>
 <span class="normal">168</span>
-<span class="normal">169</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">check_colisionDisco</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">otro_disco</span><span class="p">):</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span>
+<span class="normal">174</span>
+<span class="normal">175</span>
+<span class="normal">176</span>
+<span class="normal">177</span>
+<span class="normal">178</span>
+<span class="normal">179</span>
+<span class="normal">180</span>
+<span class="normal">181</span>
+<span class="normal">182</span>
+<span class="normal">183</span>
+<span class="normal">184</span>
+<span class="normal">185</span>
+<span class="normal">186</span>
+<span class="normal">187</span>
+<span class="normal">188</span>
+<span class="normal">189</span>
+<span class="normal">190</span>
+<span class="normal">191</span>
+<span class="normal">192</span>
+<span class="normal">193</span>
+<span class="normal">194</span>
+<span class="normal">195</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">check_colisionDisco</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">otro_disco</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Comprueba la colisión con otros discos. Cuando choca, intercambia las velocidades radiales de los discos, y mantiene la velocidad tangencial constante. Separa ligeramente ambos discos, para evitar errores.</span>
 
@@ -1309,16 +1370,27 @@ Nuevas posiciones: self.x_pos = -0.025, otro_disco.x_pos = 0.975</p>
 
 <span class="sd">    Example:</span>
 <span class="sd">        &gt;&gt;&gt; self.r = 1.0</span>
+
 <span class="sd">        &gt;&gt;&gt; self.x_pos = 0.0</span>
+
 <span class="sd">        &gt;&gt;&gt; self.y_pos = 0.0</span>
+
 <span class="sd">        &gt;&gt;&gt; self.x_vel = 2.0</span>
+
 <span class="sd">        &gt;&gt;&gt; self.y_vel = 0.0</span>
+
 <span class="sd">        &gt;&gt;&gt; otro_disco.x</span>
+
 <span class="sd">        &gt;&gt;&gt; otro_disco.x_pos = 0.95</span>
+
 <span class="sd">        &gt;&gt;&gt; otro_disco.y_pos = 0.0</span>
+
 <span class="sd">        &gt;&gt;&gt; otro_disco.x_vel = -5.0</span>
+
 <span class="sd">        &gt;&gt;&gt; otro_disco.y_vel = 0.0</span>
+
 <span class="sd">        &gt;&gt;&gt; Nuevas velocidades: self.x_vel = -5.0, otro_disco.x_vel = 2.0</span>
+
 <span class="sd">        &gt;&gt;&gt; Nuevas posiciones: self.x_pos = -0.025, otro_disco.x_pos = 0.975</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">dx</span> <span class="o">=</span> <span class="n">otro_disco</span><span class="o">.</span><span class="n">x_pos</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_pos</span>
@@ -1407,7 +1479,7 @@ Nuevas posiciones: self.x_pos = -0.025, otro_disco.x_pos = 0.975</p>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>Ancho de la caja</p>
+                <p>Ancho del espacop limitado</p>
               </div>
             </td>
             <td>
@@ -1423,7 +1495,7 @@ Nuevas posiciones: self.x_pos = -0.025, otro_disco.x_pos = 0.975</p>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>Alto de la caja</p>
+                <p>Alto del espacio limitado</p>
               </div>
             </td>
             <td>
@@ -1439,13 +1511,13 @@ Nuevas posiciones: self.x_pos = -0.025, otro_disco.x_pos = 0.975</p>
   <blockquote>
 <blockquote>
 <blockquote>
-<p>ancho = 10
-largo = 10
-self.r = 1
-self.x_pos = 4.01
-self.y_pos = 0
-Nueva velocidad: self.x_vel = -self.x_vel
-Nueva posición: self.x_pos = 3.99</p>
+<p>ancho = 10</p>
+<p>largo = 10</p>
+<p>self.r = 1</p>
+<p>self.x_pos = 4.01</p>
+<p>self.y_pos = 0</p>
+<p>Nueva velocidad: self.x_vel = -self.x_vel</p>
+<p>Nueva posición: self.x_pos = 3.99</p>
 </blockquote>
 </blockquote>
 </blockquote>
@@ -1453,16 +1525,7 @@ Nueva posición: self.x_pos = 3.99</p>
 
             <details class="quote">
               <summary>Source code in <code>Discos.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 69</span>
-<span class="normal"> 70</span>
-<span class="normal"> 71</span>
-<span class="normal"> 72</span>
-<span class="normal"> 73</span>
-<span class="normal"> 74</span>
-<span class="normal"> 75</span>
-<span class="normal"> 76</span>
-<span class="normal"> 77</span>
-<span class="normal"> 78</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 78</span>
 <span class="normal"> 79</span>
 <span class="normal"> 80</span>
 <span class="normal"> 81</span>
@@ -1484,21 +1547,42 @@ Nueva posición: self.x_pos = 3.99</p>
 <span class="normal"> 97</span>
 <span class="normal"> 98</span>
 <span class="normal"> 99</span>
-<span class="normal">100</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">check_colisionPared</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ancho</span><span class="p">,</span> <span class="n">altura</span><span class="p">):</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">check_colisionPared</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ancho</span><span class="p">,</span> <span class="n">altura</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Comprueba colisiones con las paredes. En caso de chocar con una pared, invierte la velocidad perpendicular a la pared. Además, recoloca el disco fuera de la pared</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        ancho (float): Ancho de la caja</span>
-<span class="sd">        altura (float): Alto de la caja</span>
+<span class="sd">        ancho (float): Ancho del espacop limitado</span>
+<span class="sd">        altura (float): Alto del espacio limitado</span>
 
 <span class="sd">    Example:</span>
 <span class="sd">        &gt;&gt;&gt; ancho = 10</span>
+
 <span class="sd">        &gt;&gt;&gt; largo = 10</span>
+
 <span class="sd">        &gt;&gt;&gt; self.r = 1</span>
+
 <span class="sd">        &gt;&gt;&gt; self.x_pos = 4.01</span>
+
 <span class="sd">        &gt;&gt;&gt; self.y_pos = 0</span>
+
 <span class="sd">        &gt;&gt;&gt; Nueva velocidad: self.x_vel = -self.x_vel</span>
+
 <span class="sd">        &gt;&gt;&gt; Nueva posición: self.x_pos = 3.99</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_pos</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">radio</span> <span class="o">&lt;=</span> <span class="o">-</span><span class="n">ancho</span> <span class="o">/</span> <span class="mi">2</span><span class="p">:</span>
@@ -1572,13 +1656,13 @@ Nueva posición: self.x_pos = 3.99</p>
   <blockquote>
 <blockquote>
 <blockquote>
-<p>self.x_pos = 1.0
-self.y_pos = 0.0
-self.x_vel = 3.0
-self.y_vel = -1.0
-dt = 0.01
-self.move(0.01)
-Nuevas posiciones: self.x_pos = 1.03, self.y_pos = -0.01</p>
+<p>self.x_pos = 1.0</p>
+<p>self.y_pos = 0.0</p>
+<p>self.x_vel = 3.0</p>
+<p>self.y_vel = -1.0</p>
+<p>dt = 0.01</p>
+<p>self.move(0.01)</p>
+<p>Nuevas posiciones: self.x_pos = 1.03, self.y_pos = -0.01</p>
 </blockquote>
 </blockquote>
 </blockquote>
@@ -1586,10 +1670,7 @@ Nuevas posiciones: self.x_pos = 1.03, self.y_pos = -0.01</p>
 
             <details class="quote">
               <summary>Source code in <code>Discos.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">49</span>
-<span class="normal">50</span>
-<span class="normal">51</span>
-<span class="normal">52</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">52</span>
 <span class="normal">53</span>
 <span class="normal">54</span>
 <span class="normal">55</span>
@@ -1604,7 +1685,16 @@ Nuevas posiciones: self.x_pos = 1.03, self.y_pos = -0.01</p>
 <span class="normal">64</span>
 <span class="normal">65</span>
 <span class="normal">66</span>
-<span class="normal">67</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">move</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dt</span><span class="p">):</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">move</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dt</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Actualiza la posición del disco</span>
 
@@ -1613,11 +1703,17 @@ Nuevas posiciones: self.x_pos = 1.03, self.y_pos = -0.01</p>
 
 <span class="sd">    Example:</span>
 <span class="sd">        &gt;&gt;&gt; self.x_pos = 1.0</span>
+
 <span class="sd">        &gt;&gt;&gt; self.y_pos = 0.0</span>
+
 <span class="sd">        &gt;&gt;&gt; self.x_vel = 3.0</span>
+
 <span class="sd">        &gt;&gt;&gt; self.y_vel = -1.0</span>
+
 <span class="sd">        &gt;&gt;&gt; dt = 0.01</span>
+
 <span class="sd">        &gt;&gt;&gt; self.move(0.01)</span>
+
 <span class="sd">        &gt;&gt;&gt; Nuevas posiciones: self.x_pos = 1.03, self.y_pos = -0.01</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">x_pos</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_vel</span> <span class="o">*</span> <span class="n">dt</span>
@@ -1662,36 +1758,7 @@ Nuevas posiciones: self.x_pos = 1.03, self.y_pos = -0.01</p>
 
               <details class="quote">
                 <summary>Source code in <code>Discos.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">172</span>
-<span class="normal">173</span>
-<span class="normal">174</span>
-<span class="normal">175</span>
-<span class="normal">176</span>
-<span class="normal">177</span>
-<span class="normal">178</span>
-<span class="normal">179</span>
-<span class="normal">180</span>
-<span class="normal">181</span>
-<span class="normal">182</span>
-<span class="normal">183</span>
-<span class="normal">184</span>
-<span class="normal">185</span>
-<span class="normal">186</span>
-<span class="normal">187</span>
-<span class="normal">188</span>
-<span class="normal">189</span>
-<span class="normal">190</span>
-<span class="normal">191</span>
-<span class="normal">192</span>
-<span class="normal">193</span>
-<span class="normal">194</span>
-<span class="normal">195</span>
-<span class="normal">196</span>
-<span class="normal">197</span>
-<span class="normal">198</span>
-<span class="normal">199</span>
-<span class="normal">200</span>
-<span class="normal">201</span>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">201</span>
 <span class="normal">202</span>
 <span class="normal">203</span>
 <span class="normal">204</span>
@@ -1800,7 +1867,41 @@ Nuevas posiciones: self.x_pos = 1.03, self.y_pos = -0.01</p>
 <span class="normal">307</span>
 <span class="normal">308</span>
 <span class="normal">309</span>
-<span class="normal">310</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">DiscoSimulation</span><span class="p">:</span>
+<span class="normal">310</span>
+<span class="normal">311</span>
+<span class="normal">312</span>
+<span class="normal">313</span>
+<span class="normal">314</span>
+<span class="normal">315</span>
+<span class="normal">316</span>
+<span class="normal">317</span>
+<span class="normal">318</span>
+<span class="normal">319</span>
+<span class="normal">320</span>
+<span class="normal">321</span>
+<span class="normal">322</span>
+<span class="normal">323</span>
+<span class="normal">324</span>
+<span class="normal">325</span>
+<span class="normal">326</span>
+<span class="normal">327</span>
+<span class="normal">328</span>
+<span class="normal">329</span>
+<span class="normal">330</span>
+<span class="normal">331</span>
+<span class="normal">332</span>
+<span class="normal">333</span>
+<span class="normal">334</span>
+<span class="normal">335</span>
+<span class="normal">336</span>
+<span class="normal">337</span>
+<span class="normal">338</span>
+<span class="normal">339</span>
+<span class="normal">340</span>
+<span class="normal">341</span>
+<span class="normal">342</span>
+<span class="normal">343</span>
+<span class="normal">344</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">DiscoSimulation</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Inicia y genera la simulación.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -1817,7 +1918,8 @@ Nuevas posiciones: self.x_pos = 1.03, self.y_pos = -0.01</p>
 
 <span class="sd">        Example:</span>
 <span class="sd">            &gt;&gt;&gt; DiscoSimulation(500, 10, 10, 0.01, 0.5)</span>
-<span class="sd">            &gt;&gt;&gt; Crea una simulación con 500 discos de radio 0.01, ubicados dentro de una caja de tamaño 10x10. El paso del tiempo es de 0.5.</span>
+
+<span class="sd">            &gt;&gt;&gt; Crea una simulación con 500 discos de radio 0.01, ubicados dentro de un espacio limitado de 10x10. El paso del tiempo es de 0.5.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">N</span> <span class="o">=</span> <span class="n">N</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">altura</span> <span class="o">=</span> <span class="n">height</span>
@@ -1832,7 +1934,8 @@ Nuevas posiciones: self.x_pos = 1.03, self.y_pos = -0.01</p>
 
 <span class="sd">        Example:</span>
 <span class="sd">            &gt;&gt;&gt; DiscoSimulation(100, 60, 60, 1, 0.5)</span>
-<span class="sd">            &gt;&gt;&gt; Crea 100 discos de radio 1 dentro de una caja de tamaño 60x60.</span>
+<span class="sd">            &gt;&gt;&gt; Crea 100 discos de radio 1 dentro de un espacio limitado de 60x60.</span>
+
 <span class="sd">            &gt;&gt;&gt; DiscoSimulation(200, 40, 40, 1, 0.5)</span>
 <span class="sd">            &gt;&gt;&gt; Reproduce el siguiente mensaje unas cuantas veces: &quot;Advertencia: No se pudo colocar el disco 200 después de 1000 intentos&quot;</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1918,10 +2021,13 @@ Nuevas posiciones: self.x_pos = 1.03, self.y_pos = -0.01</p>
     <span class="k">def</span><span class="w"> </span><span class="nf">histograma</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bins</span> <span class="o">=</span> <span class="mi">50</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Dibuja el histograma correspondiente a las posiciones en x de todos los discos.</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            bins (int): Cantidad de columnas del histograma.</span>
+
 <span class="sd">        Example:</span>
 <span class="sd">            &gt;&gt;&gt; Teniendo una instancia sim de DiscoSimulation</span>
+
 <span class="sd">            &gt;&gt;&gt; sim.histograma(100) </span>
 <span class="sd">            &gt;&gt;&gt; Dibuja el histograma con 100 columnas.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -2069,8 +2175,8 @@ Nuevas posiciones: self.x_pos = 1.03, self.y_pos = -0.01</p>
   <blockquote>
 <blockquote>
 <blockquote>
-<p>DiscoSimulation(500, 10, 10, 0.01, 0.5)
-Crea una simulación con 500 discos de radio 0.01, ubicados dentro de una caja de tamaño 10x10. El paso del tiempo es de 0.5.</p>
+<p>DiscoSimulation(500, 10, 10, 0.01, 0.5)</p>
+<p>Crea una simulación con 500 discos de radio 0.01, ubicados dentro de un espacio limitado de 10x10. El paso del tiempo es de 0.5.</p>
 </blockquote>
 </blockquote>
 </blockquote>
@@ -2078,27 +2184,28 @@ Crea una simulación con 500 discos de radio 0.01, ubicados dentro de una caja d
 
             <details class="quote">
               <summary>Source code in <code>Discos.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">176</span>
-<span class="normal">177</span>
-<span class="normal">178</span>
-<span class="normal">179</span>
-<span class="normal">180</span>
-<span class="normal">181</span>
-<span class="normal">182</span>
-<span class="normal">183</span>
-<span class="normal">184</span>
-<span class="normal">185</span>
-<span class="normal">186</span>
-<span class="normal">187</span>
-<span class="normal">188</span>
-<span class="normal">189</span>
-<span class="normal">190</span>
-<span class="normal">191</span>
-<span class="normal">192</span>
-<span class="normal">193</span>
-<span class="normal">194</span>
-<span class="normal">195</span>
-<span class="normal">196</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">radio</span><span class="p">,</span> <span class="n">dt</span><span class="p">):</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">205</span>
+<span class="normal">206</span>
+<span class="normal">207</span>
+<span class="normal">208</span>
+<span class="normal">209</span>
+<span class="normal">210</span>
+<span class="normal">211</span>
+<span class="normal">212</span>
+<span class="normal">213</span>
+<span class="normal">214</span>
+<span class="normal">215</span>
+<span class="normal">216</span>
+<span class="normal">217</span>
+<span class="normal">218</span>
+<span class="normal">219</span>
+<span class="normal">220</span>
+<span class="normal">221</span>
+<span class="normal">222</span>
+<span class="normal">223</span>
+<span class="normal">224</span>
+<span class="normal">225</span>
+<span class="normal">226</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">radio</span><span class="p">,</span> <span class="n">dt</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Inicia los parámetros que se mantienen constantes en la simulación.</span>
 
@@ -2111,7 +2218,8 @@ Crea una simulación con 500 discos de radio 0.01, ubicados dentro de una caja d
 
 <span class="sd">    Example:</span>
 <span class="sd">        &gt;&gt;&gt; DiscoSimulation(500, 10, 10, 0.01, 0.5)</span>
-<span class="sd">        &gt;&gt;&gt; Crea una simulación con 500 discos de radio 0.01, ubicados dentro de una caja de tamaño 10x10. El paso del tiempo es de 0.5.</span>
+
+<span class="sd">        &gt;&gt;&gt; Crea una simulación con 500 discos de radio 0.01, ubicados dentro de un espacio limitado de 10x10. El paso del tiempo es de 0.5.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">N</span> <span class="o">=</span> <span class="n">N</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">altura</span> <span class="o">=</span> <span class="n">height</span>
@@ -2141,38 +2249,7 @@ Crea una simulación con 500 discos de radio 0.01, ubicados dentro de una caja d
 
             <details class="quote">
               <summary>Source code in <code>Discos.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">239</span>
-<span class="normal">240</span>
-<span class="normal">241</span>
-<span class="normal">242</span>
-<span class="normal">243</span>
-<span class="normal">244</span>
-<span class="normal">245</span>
-<span class="normal">246</span>
-<span class="normal">247</span>
-<span class="normal">248</span>
-<span class="normal">249</span>
-<span class="normal">250</span>
-<span class="normal">251</span>
-<span class="normal">252</span>
-<span class="normal">253</span>
-<span class="normal">254</span>
-<span class="normal">255</span>
-<span class="normal">256</span>
-<span class="normal">257</span>
-<span class="normal">258</span>
-<span class="normal">259</span>
-<span class="normal">260</span>
-<span class="normal">261</span>
-<span class="normal">262</span>
-<span class="normal">263</span>
-<span class="normal">264</span>
-<span class="normal">265</span>
-<span class="normal">266</span>
-<span class="normal">267</span>
-<span class="normal">268</span>
-<span class="normal">269</span>
-<span class="normal">270</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">270</span>
 <span class="normal">271</span>
 <span class="normal">272</span>
 <span class="normal">273</span>
@@ -2186,7 +2263,38 @@ Crea una simulación con 500 discos de radio 0.01, ubicados dentro de una caja d
 <span class="normal">281</span>
 <span class="normal">282</span>
 <span class="normal">283</span>
-<span class="normal">284</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">animarMovimiento</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="normal">284</span>
+<span class="normal">285</span>
+<span class="normal">286</span>
+<span class="normal">287</span>
+<span class="normal">288</span>
+<span class="normal">289</span>
+<span class="normal">290</span>
+<span class="normal">291</span>
+<span class="normal">292</span>
+<span class="normal">293</span>
+<span class="normal">294</span>
+<span class="normal">295</span>
+<span class="normal">296</span>
+<span class="normal">297</span>
+<span class="normal">298</span>
+<span class="normal">299</span>
+<span class="normal">300</span>
+<span class="normal">301</span>
+<span class="normal">302</span>
+<span class="normal">303</span>
+<span class="normal">304</span>
+<span class="normal">305</span>
+<span class="normal">306</span>
+<span class="normal">307</span>
+<span class="normal">308</span>
+<span class="normal">309</span>
+<span class="normal">310</span>
+<span class="normal">311</span>
+<span class="normal">312</span>
+<span class="normal">313</span>
+<span class="normal">314</span>
+<span class="normal">315</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">animarMovimiento</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Anima la simulación. Calcula las posiciones de los discos. Maneja las colisiones. </span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -2258,8 +2366,8 @@ Crea una simulación con 500 discos de radio 0.01, ubicados dentro de una caja d
 <blockquote>
 <blockquote>
 <p>DiscoSimulation(100, 60, 60, 1, 0.5)
-Crea 100 discos de radio 1 dentro de una caja de tamaño 60x60.
-DiscoSimulation(200, 40, 40, 1, 0.5)
+Crea 100 discos de radio 1 dentro de un espacio limitado de 60x60.</p>
+<p>DiscoSimulation(200, 40, 40, 1, 0.5)
 Reproduce el siguiente mensaje unas cuantas veces: "Advertencia: No se pudo colocar el disco 200 después de 1000 intentos"</p>
 </blockquote>
 </blockquote>
@@ -2268,37 +2376,7 @@ Reproduce el siguiente mensaje unas cuantas veces: "Advertencia: No se pudo colo
 
             <details class="quote">
               <summary>Source code in <code>Discos.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">198</span>
-<span class="normal">199</span>
-<span class="normal">200</span>
-<span class="normal">201</span>
-<span class="normal">202</span>
-<span class="normal">203</span>
-<span class="normal">204</span>
-<span class="normal">205</span>
-<span class="normal">206</span>
-<span class="normal">207</span>
-<span class="normal">208</span>
-<span class="normal">209</span>
-<span class="normal">210</span>
-<span class="normal">211</span>
-<span class="normal">212</span>
-<span class="normal">213</span>
-<span class="normal">214</span>
-<span class="normal">215</span>
-<span class="normal">216</span>
-<span class="normal">217</span>
-<span class="normal">218</span>
-<span class="normal">219</span>
-<span class="normal">220</span>
-<span class="normal">221</span>
-<span class="normal">222</span>
-<span class="normal">223</span>
-<span class="normal">224</span>
-<span class="normal">225</span>
-<span class="normal">226</span>
-<span class="normal">227</span>
-<span class="normal">228</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">228</span>
 <span class="normal">229</span>
 <span class="normal">230</span>
 <span class="normal">231</span>
@@ -2306,13 +2384,45 @@ Reproduce el siguiente mensaje unas cuantas veces: "Advertencia: No se pudo colo
 <span class="normal">233</span>
 <span class="normal">234</span>
 <span class="normal">235</span>
-<span class="normal">236</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">creacionDiscos</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="normal">236</span>
+<span class="normal">237</span>
+<span class="normal">238</span>
+<span class="normal">239</span>
+<span class="normal">240</span>
+<span class="normal">241</span>
+<span class="normal">242</span>
+<span class="normal">243</span>
+<span class="normal">244</span>
+<span class="normal">245</span>
+<span class="normal">246</span>
+<span class="normal">247</span>
+<span class="normal">248</span>
+<span class="normal">249</span>
+<span class="normal">250</span>
+<span class="normal">251</span>
+<span class="normal">252</span>
+<span class="normal">253</span>
+<span class="normal">254</span>
+<span class="normal">255</span>
+<span class="normal">256</span>
+<span class="normal">257</span>
+<span class="normal">258</span>
+<span class="normal">259</span>
+<span class="normal">260</span>
+<span class="normal">261</span>
+<span class="normal">262</span>
+<span class="normal">263</span>
+<span class="normal">264</span>
+<span class="normal">265</span>
+<span class="normal">266</span>
+<span class="normal">267</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">creacionDiscos</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Intenta crear cada uno de los discos solicitados. Siempre procura que los discos no inicien superpuestos, en caso de no lograr esto, lo anuncia con un mensaje. Le asigna un color y el readio solicitado a cada disco.</span>
 
 <span class="sd">    Example:</span>
 <span class="sd">        &gt;&gt;&gt; DiscoSimulation(100, 60, 60, 1, 0.5)</span>
-<span class="sd">        &gt;&gt;&gt; Crea 100 discos de radio 1 dentro de una caja de tamaño 60x60.</span>
+<span class="sd">        &gt;&gt;&gt; Crea 100 discos de radio 1 dentro de un espacio limitado de 60x60.</span>
+
 <span class="sd">        &gt;&gt;&gt; DiscoSimulation(200, 40, 40, 1, 0.5)</span>
 <span class="sd">        &gt;&gt;&gt; Reproduce el siguiente mensaje unas cuantas veces: &quot;Advertencia: No se pudo colocar el disco 200 después de 1000 intentos&quot;</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -2362,47 +2472,91 @@ Reproduce el siguiente mensaje unas cuantas veces: "Advertencia: No se pudo colo
 
     <div class="doc doc-contents ">
 
-        <p>Dibuja el histograma correspondiente a las posiciones en x de todos los discos.
-Args:
-    bins (int): Cantidad de columnas del histograma.
-Example:
-    &gt;&gt;&gt; Teniendo una instancia sim de DiscoSimulation
-    &gt;&gt;&gt; sim.histograma(100) 
-    &gt;&gt;&gt; Dibuja el histograma con 100 columnas.</p>
+        <p>Dibuja el histograma correspondiente a las posiciones en x de todos los discos.</p>
 
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>bins</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Cantidad de columnas del histograma.</p>
+              </div>
+            </td>
+            <td>
+                  <code>50</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<details class="example" open>
+  <summary>Example</summary>
+  <blockquote>
+<blockquote>
+<blockquote>
+<p>Teniendo una instancia sim de DiscoSimulation</p>
+<p>sim.histograma(100) 
+Dibuja el histograma con 100 columnas.</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</details>
 
             <details class="quote">
               <summary>Source code in <code>Discos.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">287</span>
-<span class="normal">288</span>
-<span class="normal">289</span>
-<span class="normal">290</span>
-<span class="normal">291</span>
-<span class="normal">292</span>
-<span class="normal">293</span>
-<span class="normal">294</span>
-<span class="normal">295</span>
-<span class="normal">296</span>
-<span class="normal">297</span>
-<span class="normal">298</span>
-<span class="normal">299</span>
-<span class="normal">300</span>
-<span class="normal">301</span>
-<span class="normal">302</span>
-<span class="normal">303</span>
-<span class="normal">304</span>
-<span class="normal">305</span>
-<span class="normal">306</span>
-<span class="normal">307</span>
-<span class="normal">308</span>
-<span class="normal">309</span>
-<span class="normal">310</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">histograma</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bins</span> <span class="o">=</span> <span class="mi">50</span><span class="p">):</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">318</span>
+<span class="normal">319</span>
+<span class="normal">320</span>
+<span class="normal">321</span>
+<span class="normal">322</span>
+<span class="normal">323</span>
+<span class="normal">324</span>
+<span class="normal">325</span>
+<span class="normal">326</span>
+<span class="normal">327</span>
+<span class="normal">328</span>
+<span class="normal">329</span>
+<span class="normal">330</span>
+<span class="normal">331</span>
+<span class="normal">332</span>
+<span class="normal">333</span>
+<span class="normal">334</span>
+<span class="normal">335</span>
+<span class="normal">336</span>
+<span class="normal">337</span>
+<span class="normal">338</span>
+<span class="normal">339</span>
+<span class="normal">340</span>
+<span class="normal">341</span>
+<span class="normal">342</span>
+<span class="normal">343</span>
+<span class="normal">344</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">histograma</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bins</span> <span class="o">=</span> <span class="mi">50</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Dibuja el histograma correspondiente a las posiciones en x de todos los discos.</span>
+
 <span class="sd">    Args:</span>
 <span class="sd">        bins (int): Cantidad de columnas del histograma.</span>
+
 <span class="sd">    Example:</span>
 <span class="sd">        &gt;&gt;&gt; Teniendo una instancia sim de DiscoSimulation</span>
+
 <span class="sd">        &gt;&gt;&gt; sim.histograma(100) </span>
 <span class="sd">        &gt;&gt;&gt; Dibuja el histograma con 100 columnas.</span>
 <span class="sd">    &quot;&quot;&quot;</span>

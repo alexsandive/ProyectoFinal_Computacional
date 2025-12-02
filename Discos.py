@@ -287,8 +287,10 @@ class DiscoSimulation:
     def histograma(self, bins = 50):
         """
         Dibuja el histograma correspondiente a las posiciones en x de todos los discos.
+        
         Args:
             bins (int): Cantidad de columnas del histograma.
+
         Example:
             >>> Teniendo una instancia sim de DiscoSimulation
             >>> sim.histograma(100) 

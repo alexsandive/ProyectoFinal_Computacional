@@ -16,7 +16,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.17">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.20">
     
     
       
@@ -24,7 +24,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.7e37652d.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.e53b48f4.min.css">
       
       
 
@@ -282,7 +282,98 @@
 
 
 <h1 id="dinamica-molecular">Dinámica Molecular</h1>
-<p>Implementa un sistema conformado por un espacio rectangular con anchura y altura definibles, y una cantidad de discos a elección con cierto radio propuesto. Estos parten con una velocidad y posición aleatorios. Los discos chocan de forma elástica con las paredes, y entre ellos también. Los discos no poseen rotación. No se consideran fuerzas de fricción ni de otro tipo.</p>
+<p>El código implementa un sistema conformado por un espacio rectangular con anchura y altura definibles, y una cantidad de discos a elección con cierto radio propuesto. Estos parten con una velocidad y posición aleatorios. Los discos chocan de forma elástica con las paredes, y entre ellos también. Los discos no poseen rotación. No se consideran fuerzas de fricción ni de otro tipo.</p>
+<h1 id="metodologia-utilizada-en-el-codigo">Metodología utilizada en el código</h1>
+<p>El código implementa una <strong>simulación de colisiones entre discos en dos dimensiones</strong>. Para lograrlo, utiliza una combinación de modelado físico básico, integración temporal, detección de colisiones y animación. La información a continuación se presenta en el orden que se leería el código normalmente (de arriba a abajo).</p>
+<hr />
+<h2 id="1-representacion-de-cada-disco">1. Representación de cada disco</h2>
+<p>El código define una clase <code>Disco</code> que encapsula toda la información relevante de cada partícula:</p>
+<ul>
+<li>Posición: <code>x_pos</code>, <code>y_pos</code></li>
+<li>Velocidad: <code>x_vel</code>, <code>y_vel</code></li>
+<li>Radio y color</li>
+<li>Historial de posiciones (<code>x_poss</code>) para análisis posterior</li>
+</ul>
+<p>Cada instancia de <code>Disco</code> puede:</p>
+<ul>
+<li>Moverse en el plano.</li>
+<li>Detectar y ejecutar colisiones con paredes.</li>
+<li>Detectar y ejecutar colisiones con otros discos.</li>
+</ul>
+<hr />
+<h2 id="2-movimiento-de-los-discos">2. Movimiento de los discos</h2>
+<p>En cada paso temporal, el método <code>move()</code> actualiza la posición del disco mediante integración explícita:</p>
+<div class="arithmatex">\[
+x \leftarrow x + v_x \cdot dt,\qquad y \leftarrow y + v_y ; dt
+\]</div>
+<p>Este es un método sencillo y directo que permite avanzar la simulación cuadro a cuadro. En cada actualización se almacena la nueva posición en el historial del centro de masa del disco de la posición en x.</p>
+<hr />
+<h2 id="3-colisiones-con-las-paredes">3. Colisiones con las paredes</h2>
+<p>El método <code>check_colisionPared()</code> revisa si el disco viola los límites del contenedor.<br />
+Si lo hace:</p>
+<ul>
+<li>Se invierte la velocidad en el eje correspondiente.</li>
+<li>Se corrige la posición para evitar que el disco quede "incrustado" de la pared.</li>
+</ul>
+<p>Esto mantiene a todos los discos confinados dentro del área delimitada.</p>
+<hr />
+<h2 id="4-colisiones-entre-discos">4. Colisiones entre discos</h2>
+<p>El método <code>colisionDiscos()</code>:</p>
+<ol>
+<li>Calcula la distancia entre los dos discos.</li>
+<li>Comprueba si la distancia es menor o igual a la suma de los radios para determinar la colisión.</li>
+<li>Se hace un cambio de coordenadas a polares. Esto proyecta las velocidades de ambos discos en:</li>
+<li>Componente radial, que es línea que conecta los centros</li>
+<li>Componente tangencial</li>
+<li>En una colisión elástica de masas iguales:</li>
+<li>Las componentes radiales de las velocidades se intercambian.</li>
+<li>Las tangenciales permanecen constantes.</li>
+<li>Se vuelve a hacer el cambio de las velocidades en coordenadas cartesianas.</li>
+<li>Se corrigen posiciones para evitar superposición.</li>
+</ol>
+<hr />
+<h2 id="5-generacion-de-la-animacion">5. Generación de la animación</h2>
+<p>El método <code>animarMovimiento()</code>:</p>
+<ol>
+<li>Crea una figura de Matplotlib y dibuja un círculo para cada disco.</li>
+<li>Se define un método <code>animar()</code> que en cada frame:</li>
+<li>Mueve todos los discos.</li>
+<li>Revisa colisiones con paredes.</li>
+<li>Verifica colisiones entre discos, en este caso para un disco verifica todos los otros discos existentes.</li>
+<li>Actualiza la posición gráfica de cada disco.</li>
+<li>Usa <code>FuncAnimation</code> para reproducir la simulación en tiempo real.</li>
+</ol>
+<hr />
+<h2 id="6-histograma-de-posiciones">6. Histograma de posiciones</h2>
+<p>Tras la simulación, el método <code>histograma()</code>:</p>
+<ol>
+<li>Reúne todas las posiciones x almacenadas en <code>x_poss</code>.</li>
+<li>Construye un histograma con Matplotlib.</li>
+<li>Muestra la distribución espacial recorrida por los discos.</li>
+</ol>
+<p>Este análisis permite visualizar qué regiones del contenedor fueron visitadas con mayor frecuencia.</p>
+<hr />
+<h2 id="7-flujo-general-de-la-simulacion">7. Flujo general de la simulación</h2>
+<ol>
+<li>Se crea la instancia <code>DiscoSimulation</code>.</li>
+<li>Se generan los discos sin superposición inicial (<code>creacionDiscos()</code>).</li>
+<li>Se ejecuta la animación (<code>animarMovimiento()</code>).</li>
+<li>Se analiza la distribución espacial (<code>histograma()</code>).</li>
+</ol>
+<hr />
+<h2 id="8-extra-optimizacion-mediante-spatial-hashing-aplicado-en-el-programa-discos_optimizadopy">8. Extra: Optimización mediante "spatial hashing" aplicado en el programa <code>Discos_optimizado.py</code></h2>
+<p>El método <code>check_ColisionDisco()</code> evita revisar colisiones entre todas las parejas posibles de discos.</p>
+<p>Para ello:</p>
+<ul>
+<li>Se divide el espacio en una cuadrícula.</li>
+<li>Cada disco se asigna a una celda según su posición.</li>
+<li>Solo se revisan colisiones entre discos que comparten celda o están en celdas vecinas.</li>
+</ul>
+<p>Esto reduce enormemente el número de comparaciones necesarias y acelera la simulación.</p>
+<h3 id="referencias">Referencias</h3>
+<ul>
+<li>Halliday, D., Resnick, R., &amp; Walker, J. (2014). <em>Fundamentos de Física</em> (10.ª ed.). Wiley.</li>
+</ul>
 
 
 
@@ -334,7 +425,7 @@
       <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.92b07e13.min.js"></script>
+      <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
       
         <script src="../javascripts/config.js"></script>
       

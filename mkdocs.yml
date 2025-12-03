@@ -3,7 +3,7 @@ site_name: Colisiones de discos en un espacio limitado
 nav:
   - Problema: index.md
   - Metodología: explanation.md
-  - Ejemplos de uso: tutorial.md
+  - Tutorial: tutorial.md
   - Recursos de implementación: reference.md
 
 markdown_extensions:

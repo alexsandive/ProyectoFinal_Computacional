@@ -30,7 +30,7 @@ Cada instancia de `Disco` puede:
 En cada paso temporal, el método `move()` actualiza la posición del disco mediante integración explícita:
 
 \[
-x \leftarrow x + v_x \cdot dt,\qquad y \leftarrow y + v_y ; dt
+\leftarrow x + v_x dt,\qquad y \leftarrow y + v_y dt
 \]
 
 Este es un método sencillo y directo que permite avanzar la simulación cuadro a cuadro. En cada actualización se almacena la nueva posición en el historial del centro de masa del disco de la posición en x.

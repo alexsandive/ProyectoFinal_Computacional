@@ -1,8 +1,8 @@
 #!/usr/bin/env python
-"""
-# Dinámica Molecular
+"""El módulo contiene las siguientes dos clases:
 
-Implementa un sistema conformado por un espacio rectangular con anchura y altura definibles, y una cantidad de discos a elección con cierto radio propuesto. Estos parten con una velocidad y posición aleatorios. Los discos chocan de forma elástica con las paredes, y entre ellos también. Los discos no poseen rotación. No se consideran fuerzas de fricción ni de otro tipo.
+- `Disco` - Representa a un disco dentro de la simulación.
+- `DiscoSimulation` - Genera, inicia y analiza la simulación.
 """
 
 
@@ -11,10 +11,6 @@ import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 import matplotlib.patches as patches
 import random
-
-"""
-## Se utilizan dos clases, la primera es la clase Disco:
-"""
 
 class Disco:
     """
@@ -194,13 +190,9 @@ class Disco:
             return True
         return False
 
-"""
-## La segunda clase es DiscoSimulation:
-"""
-
 class DiscoSimulation:
     """
-    Inicia y genera la simulación.
+    Clase utilizada para genera e iniciar la simulación. Genera un histograma sobre las posiciones en el eje x por las cuales pasaron los discos durante toda la simulación. 
     """
     def __init__(self, N, height, width, radio, dt):
         """
